@@ -1,6 +1,8 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { supabase } from '@/lib/supabaseClient';
+import { FALLBACK_MENU, FALLBACK_EVENTS, FallbackCategory, FallbackEvent } from '@/lib/fallbackData';
 
 // Translation data
 const translations: Record<string, Record<string, string>> = {
@@ -126,8 +128,87 @@ const translations: Record<string, Record<string, string>> = {
   },
 };
 export default function HomePage() {
+  const [menu, setMenu] = useState<FallbackCategory[]>(FALLBACK_MENU);
+  const [events, setEvents] = useState<FallbackEvent[]>(FALLBACK_EVENTS);
+  const [currentLang, setCurrentLang] = useState('ka');
+
+  // Sync language state on mount
   useEffect(() => {
-    // --- Scroll Reveal Animation ---
+    const savedLang = localStorage.getItem('akademikosi_lang') || 'ka';
+    setCurrentLang(savedLang);
+  }, []);
+
+  // Fetch data from Supabase client-side
+  useEffect(() => {
+    async function fetchData() {
+      if (!supabase) return;
+
+      try {
+        // Fetch Categories
+        const { data: categoriesData, error: catError } = await supabase
+          .from('menu_categories')
+          .select('*')
+          .order('order_index', { ascending: true });
+
+        if (catError) throw catError;
+
+        // Fetch Menu Items
+        const { data: itemsData, error: itemsError } = await supabase
+          .from('menu_items')
+          .select('*')
+          .eq('is_available', true)
+          .order('order_index', { ascending: true });
+
+        if (itemsError) throw itemsError;
+
+        // Map items to categories
+        if (categoriesData) {
+          const mappedMenu = categoriesData.map((cat: any) => ({
+            id: cat.id,
+            name_ka: cat.name_ka,
+            name_en: cat.name_en,
+            name_uk: cat.name_uk,
+            order_index: cat.order_index,
+            items: (itemsData || [])
+              .filter((item: any) => item.category_id === cat.id)
+              .map((item: any) => ({
+                id: item.id,
+                category_id: item.category_id,
+                name_ka: item.name_ka,
+                name_en: item.name_en,
+                name_uk: item.name_uk,
+                description_ka: item.description_ka,
+                description_en: item.description_en,
+                description_uk: item.description_uk,
+                price: item.price,
+                is_available: item.is_available,
+                order_index: item.order_index,
+              })),
+          }));
+          setMenu(mappedMenu);
+        }
+
+        // Fetch Events
+        const { data: eventsData, error: eventsError } = await supabase
+          .from('events')
+          .select('*')
+          .order('order_index', { ascending: true });
+
+        if (eventsError) throw eventsError;
+
+        if (eventsData) {
+          setEvents(eventsData);
+        }
+      } catch (err) {
+        console.error('Error fetching data from Supabase:', err);
+      }
+    }
+
+    fetchData();
+  }, []);
+
+  // Separate IntersectionObserver for dynamic reveal elements
+  useEffect(() => {
     const reveals = document.querySelectorAll('.reveal');
     const revealObserver = new IntersectionObserver(
       (entries) => {
@@ -142,6 +223,13 @@ export default function HomePage() {
     reveals.forEach((reveal) => {
       revealObserver.observe(reveal);
     });
+
+    return () => {
+      revealObserver.disconnect();
+    };
+  }, [menu, events]);
+
+  useEffect(() => {
 
     // --- Lazy Load Map ---
     const mapIframe = document.querySelector<HTMLIFrameElement>('.contact-map iframe');
@@ -254,22 +342,9 @@ export default function HomePage() {
 
       // Menu
       _s('.menu-header', t.menuTitle);
-      _sa('.menu-category h3', 0, t.menuCat1);
-      _sa('.menu-category h3', 1, t.menuCat2);
-      _sa('.menu-category h3', 2, t.menuCat3);
-      _sa('.menu-category h3', 3, t.menuCat4);
 
       // Events
       _s('.events-header', t.eventsTitle);
-      _sa('.event-day', 0, t.eventDay1);
-      _sa('.event-name', 0, t.eventName1);
-      _sa('.event-time', 0, t.eventTime1);
-      _sa('.event-day', 1, t.eventDay2);
-      _sa('.event-name', 1, t.eventName2);
-      _sa('.event-time', 1, t.eventTime2);
-      _sa('.event-day', 2, t.eventDay3);
-      _sa('.event-name', 2, t.eventName3);
-      _sa('.event-time', 2, t.eventTime3);
 
       // Contact
       _s('.contact-header', t.contactTitle);
@@ -301,6 +376,7 @@ export default function HomePage() {
     langBtns.forEach((btn) => {
       btn.addEventListener('click', () => {
         const lang = btn.dataset.lang!;
+        setCurrentLang(lang);
         langBtns.forEach((b) => b.classList.remove('active'));
         btn.classList.add('active');
         applyTranslations(lang);
@@ -344,7 +420,6 @@ export default function HomePage() {
 
     // Cleanup
     return () => {
-      revealObserver.disconnect();
       document.body.removeChild(script);
     };
   }, []);
@@ -445,213 +520,51 @@ export default function HomePage() {
       <section className="menu" id="menu">
         <h2 className="menu-header reveal">Menu</h2>
         <div className="menu-grid">
-          <div className="menu-category reveal">
-            <h3>Hand Crafted Cocktails — 22₾</h3>
-            <div className="menu-item">
-              <span className="menu-name">
-                Akademikosi
-                <br />
-                <small style={{ fontWeight: 300, fontSize: '0.7em', opacity: 0.5 }}>Bitter</small>
-              </span>
-              <span className="menu-price">22₾</span>
+          {menu.map((cat) => (
+            <div className="menu-category reveal" key={cat.id}>
+              <h3>
+                {currentLang === 'ka'
+                  ? cat.name_ka
+                  : currentLang === 'en'
+                  ? cat.name_en
+                  : cat.name_uk}
+              </h3>
+              {cat.items.map((item) => (
+                <div className="menu-item" key={item.id}>
+                  <span className="menu-name">
+                    {currentLang === 'ka'
+                      ? item.name_ka
+                      : currentLang === 'en'
+                      ? item.name_en
+                      : item.name_uk}
+                    {(currentLang === 'ka'
+                      ? item.description_ka
+                      : currentLang === 'en'
+                      ? item.description_en
+                      : item.description_uk) && (
+                      <>
+                        <br />
+                        <small
+                          style={{
+                            fontWeight: 300,
+                            fontSize: '0.7em',
+                            opacity: 0.5,
+                          }}
+                        >
+                          {currentLang === 'ka'
+                            ? item.description_ka
+                            : currentLang === 'en'
+                            ? item.description_en
+                            : item.description_uk}
+                        </small>
+                      </>
+                    )}
+                  </span>
+                  <span className="menu-price">{item.price}₾</span>
+                </div>
+              ))}
             </div>
-            <div className="menu-item">
-              <span className="menu-name">
-                Harvest
-                <br />
-                <small style={{ fontWeight: 300, fontSize: '0.7em', opacity: 0.5 }}>
-                  Spicy, Chilli
-                </small>
-              </span>
-              <span className="menu-price">22₾</span>
-            </div>
-            <div className="menu-item">
-              <span className="menu-name">
-                Bubble Freeze
-                <br />
-                <small style={{ fontWeight: 300, fontSize: '0.7em', opacity: 0.5 }}>
-                  Tropical
-                </small>
-              </span>
-              <span className="menu-price">22₾</span>
-            </div>
-            <div className="menu-item">
-              <span className="menu-name">
-                Berry Gimlet
-                <br />
-                <small style={{ fontWeight: 300, fontSize: '0.7em', opacity: 0.5 }}>
-                  Tropical
-                </small>
-              </span>
-              <span className="menu-price">22₾</span>
-            </div>
-            <div className="menu-item">
-              <span className="menu-name">
-                Dream
-                <br />
-                <small style={{ fontWeight: 300, fontSize: '0.7em', opacity: 0.5 }}>
-                  Sweet, Creamy
-                </small>
-              </span>
-              <span className="menu-price">22₾</span>
-            </div>
-          </div>
-
-          <div className="menu-category reveal">
-            <h3>Classic Cocktails</h3>
-            <div className="menu-item">
-              <span className="menu-name">Negroni</span>
-              <span className="menu-price">20₾</span>
-            </div>
-            <div className="menu-item">
-              <span className="menu-name">Whiskey Sour</span>
-              <span className="menu-price">19₾</span>
-            </div>
-            <div className="menu-item">
-              <span className="menu-name">Gin Sour Maracuya</span>
-              <span className="menu-price">22₾</span>
-            </div>
-            <div className="menu-item">
-              <span className="menu-name">Aperol / Limoncello Spritz</span>
-              <span className="menu-price">22₾</span>
-            </div>
-            <div className="menu-item">
-              <span className="menu-name">Mai Tai</span>
-              <span className="menu-price">19₾</span>
-            </div>
-            <div className="menu-item">
-              <span className="menu-name">Daiquiri / Margarita</span>
-              <span className="menu-price">19₾</span>
-            </div>
-            <div className="menu-item">
-              <span className="menu-name">Old Fashioned</span>
-              <span className="menu-price">19₾</span>
-            </div>
-            <div className="menu-item">
-              <span className="menu-name">Espresso Martini</span>
-              <span className="menu-price">19₾</span>
-            </div>
-            <div className="menu-item">
-              <span className="menu-name">Gin Breeze / Basil Smash</span>
-              <span className="menu-price">19₾</span>
-            </div>
-          </div>
-
-          <div className="menu-category reveal">
-            <h3>Spirits</h3>
-            <div className="menu-item">
-              <span className="menu-name">Aperol</span>
-              <span className="menu-price">11₾</span>
-            </div>
-            <div className="menu-item">
-              <span className="menu-name">Campari</span>
-              <span className="menu-price">12₾</span>
-            </div>
-            <div className="menu-item">
-              <span className="menu-name">Jagermeister</span>
-              <span className="menu-price">10₾</span>
-            </div>
-            <div className="menu-item">
-              <span className="menu-name">Limoncello</span>
-              <span className="menu-price">11₾</span>
-            </div>
-            <div className="menu-item">
-              <span className="menu-name">Absolut</span>
-              <span className="menu-price">10₾</span>
-            </div>
-            <div className="menu-item">
-              <span className="menu-name">Gray Goose</span>
-              <span className="menu-price">20₾</span>
-            </div>
-            <div className="menu-item">
-              <span className="menu-name">Tullamore Dew</span>
-              <span className="menu-price">14₾</span>
-            </div>
-            <div className="menu-item">
-              <span className="menu-name">Jameson</span>
-              <span className="menu-price">15₾</span>
-            </div>
-            <div className="menu-item">
-              <span className="menu-name">{`Jack Daniel's`}</span>
-              <span className="menu-price">16₾</span>
-            </div>
-            <div className="menu-item">
-              <span className="menu-name">Monkey Shoulder</span>
-              <span className="menu-price">22₾</span>
-            </div>
-            <div className="menu-item">
-              <span className="menu-name">{`Hendrick's`}</span>
-              <span className="menu-price">22₾</span>
-            </div>
-            <div className="menu-item">
-              <span className="menu-name">The Botanist</span>
-              <span className="menu-price">22₾</span>
-            </div>
-            <div className="menu-item">
-              <span className="menu-name">Beefeater</span>
-              <span className="menu-price">12₾</span>
-            </div>
-            <div className="menu-item">
-              <span className="menu-name">Tanqueray</span>
-              <span className="menu-price">15₾</span>
-            </div>
-            <div className="menu-item">
-              <span className="menu-name">Bombay</span>
-              <span className="menu-price">16₾</span>
-            </div>
-            <div className="menu-item">
-              <span className="menu-name">Captain Morgan</span>
-              <span className="menu-price">11₾</span>
-            </div>
-            <div className="menu-item">
-              <span className="menu-name">Havana Club</span>
-              <span className="menu-price">13₾</span>
-            </div>
-            <div className="menu-item">
-              <span className="menu-name">Bacardi</span>
-              <span className="menu-price">12₾</span>
-            </div>
-            <div className="menu-item">
-              <span className="menu-name">Hennessy VS</span>
-              <span className="menu-price">29₾</span>
-            </div>
-            <div className="menu-item">
-              <span className="menu-name">Milagro Reposado</span>
-              <span className="menu-price">18₾</span>
-            </div>
-            <div className="menu-item">
-              <span className="menu-name">Jose Cuervo</span>
-              <span className="menu-price">14₾</span>
-            </div>
-          </div>
-
-          <div className="menu-category reveal">
-            <h3>Beer</h3>
-            <div className="menu-item">
-              <span className="menu-name">Heineken</span>
-              <span className="menu-price">12₾</span>
-            </div>
-            <div className="menu-item">
-              <span className="menu-name">Corona</span>
-              <span className="menu-price">14₾</span>
-            </div>
-            <div className="menu-item">
-              <span className="menu-name">Estrella</span>
-              <span className="menu-price">11₾</span>
-            </div>
-            <div className="menu-item">
-              <span className="menu-name">Lowenbrau</span>
-              <span className="menu-price">12₾</span>
-            </div>
-            <div className="menu-item">
-              <span className="menu-name">Tuati</span>
-              <span className="menu-price">15₾</span>
-            </div>
-            <div className="menu-item">
-              <span className="menu-name">Cider</span>
-              <span className="menu-price">17/38₾</span>
-            </div>
-          </div>
+          ))}
         </div>
       </section>
 
@@ -659,23 +572,41 @@ export default function HomePage() {
       <section className="events" id="events">
         <h2 className="events-header reveal">Events</h2>
         <div className="events-grid">
-          <div className="event-card reveal">
-            <div className="event-day">Wednesday</div>
-            <div className="event-name">Underground Jam</div>
-            <div className="event-time">21:00 — Open Mic Night</div>
-          </div>
-
-          <div className="event-card reveal">
-            <div className="event-day">Friday</div>
-            <div className="event-name">Jupiter Nights</div>
-            <div className="event-time">23:00 — DJ Set</div>
-          </div>
-
-          <div className="event-card reveal">
-            <div className="event-day">Saturday</div>
-            <div className="event-name">Live Bands</div>
-            <div className="event-time">22:00 — Featured Artists</div>
-          </div>
+          {events.map((event) => (
+            <div className="event-card reveal" key={event.id}>
+              <div className="event-day">
+                {currentLang === 'ka'
+                  ? event.event_day_ka
+                  : currentLang === 'en'
+                  ? event.event_day_en
+                  : event.event_day_uk}
+              </div>
+              <div className="event-name">
+                {currentLang === 'ka'
+                  ? event.title_ka
+                  : currentLang === 'en'
+                  ? event.title_en
+                  : event.title_uk}
+              </div>
+              <div className="event-time">
+                {event.event_time}
+                {(currentLang === 'ka'
+                  ? event.description_ka
+                  : currentLang === 'en'
+                  ? event.description_en
+                  : event.description_uk) && (
+                  <>
+                    {' — '}
+                    {currentLang === 'ka'
+                      ? event.description_ka
+                      : currentLang === 'en'
+                      ? event.description_en
+                      : event.description_uk}
+                  </>
+                )}
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
