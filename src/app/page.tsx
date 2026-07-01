@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 
 // Translation data
 const translations: Record<string, Record<string, string>> = {
@@ -125,10 +125,7 @@ const translations: Record<string, Record<string, string>> = {
     footerText: 'Akademikosi · © 2026',
   },
 };
-
 export default function HomePage() {
-  const heroLogoRef = useRef<HTMLHeadingElement>(null);
-
   useEffect(() => {
     // --- Scroll Reveal Animation ---
     const reveals = document.querySelectorAll('.reveal');
@@ -160,30 +157,7 @@ export default function HomePage() {
       mapObserver.observe(mapIframe);
     }
 
-    // --- Text Scramble Effect ---
-    const heroLogo = heroLogoRef.current;
-    if (heroLogo) {
-      const letters = 'abcdefghijklmnopqrstuvwxyz';
-      let iteration = 0;
-      const scramble = setInterval(() => {
-        heroLogo.textContent = heroLogo.textContent!
-          .split('')
-          .map((letter, index) => {
-            if (index < iteration) {
-              return 'a';
-            }
-            return letters[Math.floor(Math.random() * letters.length)];
-          })
-          .join('');
 
-        if (iteration >= 1) {
-          clearInterval(scramble);
-          heroLogo.textContent = 'a';
-        }
-
-        iteration += 1 / 6;
-      }, 50);
-    }
 
     // --- Smooth Scroll for anchor links ---
     const handleAnchorClick = (e: MouseEvent) => {
@@ -409,9 +383,13 @@ export default function HomePage() {
 
       {/* HERO */}
       <section className="hero">
-        <h1 className="hero-logo" ref={heroLogoRef}>
-          a
-        </h1>
+        <div className="hero-logo">
+          <img
+            src="/logo.png"
+            className="hero-logo-img"
+            alt="Akademikosi Logo"
+          />
+        </div>
         <div className="hero-meta">
           <span className="geo">ბარი & სამზარეულო</span>
           <span>Bar & Kitchen</span>
@@ -878,7 +856,13 @@ export default function HomePage() {
 
       {/* FOOTER */}
       <footer className="footer">
-        <div className="footer-logo">a</div>
+        <div className="footer-logo">
+          <img
+            src="/logo.png"
+            className="footer-logo-img"
+            alt="Akademikosi Logo"
+          />
+        </div>
         <div className="footer-text">
           <span className="geo">აკადემიკოსი</span> · Akademikosi · © 2026
           <br />

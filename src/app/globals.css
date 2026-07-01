@@ -54,14 +54,23 @@ body::before {
 }
 
 .hero-logo {
-    font-family: var(--serif);
-    font-size: clamp(15rem, 25vw, 28rem);
-    font-weight: 400;
-    font-style: italic;
-    line-height: 0.8;
-    letter-spacing: -0.05em;
     opacity: 0;
     animation: fadeIn 1.5s ease-out 0.3s forwards;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-logo-img {
+    height: clamp(8rem, 16vw, 18rem);
+    width: auto;
+    object-fit: contain;
+    filter: invert(0);
+    transition: filter 0.3s ease;
+}
+
+body.day-mode .hero-logo-img {
+    filter: invert(1);
 }
 
 .hero-meta {
@@ -463,12 +472,17 @@ body.day-mode .contact-map iframe { filter: grayscale(100%) contrast(1.2); }
 }
 
 .footer-logo {
-    font-family: var(--serif);
-    font-size: clamp(8rem, 15vw, 15rem);
-    font-style: italic;
     margin-bottom: 2rem;
-    line-height: 1;
-    letter-spacing: -0.05em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer-logo-img {
+    height: clamp(3.5rem, 7vw, 8rem);
+    width: auto;
+    object-fit: contain;
+    filter: invert(1);
 }
 
 .footer-text {
