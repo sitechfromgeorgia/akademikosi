@@ -288,9 +288,9 @@ export default function HomePage() {
         if (el) {
           el.style.fontFamily =
             lang === 'ka'
-              ? "'Noto Sans Georgian', sans-serif"
+              ? "'Noto Serif Georgian', serif"
               : "'Instrument Serif', serif";
-          el.style.fontStyle = lang !== 'ka' ? 'italic' : 'normal';
+          el.style.fontStyle = 'italic';
         }
       });
 
