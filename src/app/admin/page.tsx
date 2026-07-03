@@ -81,6 +81,13 @@ export default function AdminPage() {
     }
   };
 
+  // 0. Theme Isolation: Admin panel is always dark theme
+  useEffect(() => {
+    document.body.classList.remove('day-mode');
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', '#0a0a0a');
+  }, []);
+
   // 1. Auth check
   useEffect(() => {
     if (!supabase) {
