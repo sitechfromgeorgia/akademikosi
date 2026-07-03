@@ -10,6 +10,20 @@
     --serif: 'Instrument Serif', serif;
     --sans: 'Darker Grotesque', sans-serif;
     --geo: 'Noto Sans Georgian', sans-serif;
+    --geo-sans: 'Noto Sans Georgian', sans-serif;
+    --geo-serif: 'Noto Serif Georgian', serif;
+    --cyr-sans: 'Montserrat', system-ui, -apple-system, sans-serif;
+    --cyr-serif: 'Cormorant Garamond', 'Georgia', serif;
+}
+
+html[lang="ka"] {
+    --serif: var(--geo-serif);
+    --sans: var(--geo-sans);
+}
+
+html[lang="uk"] {
+    --serif: var(--cyr-serif);
+    --sans: var(--cyr-sans);
 }
 
 body {
@@ -19,7 +33,6 @@ body {
     font-weight: 400;
     line-height: 1.3;
     overflow-x: hidden;
-    cursor: crosshair;
 }
 
 /* Grain Texture */
@@ -50,7 +63,6 @@ body::before {
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    cursor: none;
 }
 
 .hero-logo {
@@ -302,39 +314,49 @@ body.day-mode .contact-map iframe { filter: grayscale(100%) contrast(1.2); }
 }
 
 .menu-item {
+    margin-bottom: 1.5rem;
+}
+
+.menu-item-info {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.menu-item-main {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    margin-bottom: 1.2rem;
-    position: relative;
-}
-
-.menu-item::after {
-    content: '';
-    position: absolute;
-    bottom: 0.4rem;
-    left: 0;
-    right: 0;
-    border-bottom: 1px dotted rgba(255, 255, 255, 0.3);
-    z-index: 0;
+    width: 100%;
 }
 
 .menu-name {
     font-size: 1.3rem;
     font-weight: 500;
-    background: var(--black);
     padding-right: 0.5rem;
-    position: relative;
-    z-index: 1;
+}
+
+.menu-leader {
+    flex-grow: 1;
+    border-bottom: 1px dotted rgba(255, 255, 255, 0.3);
+    margin: 0 0.5rem;
+    align-self: baseline;
 }
 
 .menu-price {
     font-size: 1.1rem;
     font-weight: 400;
-    background: var(--black);
     padding-left: 0.5rem;
-    position: relative;
-    z-index: 1;
+    white-space: nowrap;
+}
+
+.menu-description {
+    font-weight: 300;
+    font-size: 0.85rem;
+    opacity: 0.5;
+    margin-top: 0.25rem;
+    line-height: 1.4;
+    max-width: 85%;
 }
 
 /* EVENTS SECTION */
@@ -527,13 +549,20 @@ body.day-mode .contact-map iframe { filter: grayscale(100%) contrast(1.2); }
         grid-template-columns: 1fr;
     }
     
-    .hero-meta,
-    .hero-rating {
+    .hero-meta {
         font-size: 0.55rem;
         left: 2rem;
-        right: 2rem;
         bottom: 2rem;
+        right: auto;
+        top: auto;
+    }
+    
+    .hero-rating {
+        font-size: 0.55rem;
+        right: 2rem;
         top: 2rem;
+        left: auto;
+        bottom: auto;
     }
     
     .menu,
@@ -547,11 +576,15 @@ body.day-mode .contact-map iframe { filter: grayscale(100%) contrast(1.2); }
     .hero-meta {
         left: 1.5rem;
         bottom: 1.5rem;
+        right: auto;
+        top: auto;
     }
     
     .hero-rating {
         top: 1.5rem;
         right: 1.5rem;
+        left: auto;
+        bottom: auto;
     }
     
     .about {
@@ -1170,4 +1203,106 @@ body.day-mode .contact-map iframe { filter: grayscale(100%) contrast(1.2); }
 .admin-save-btn:hover {
     background: transparent;
     color: #fff;
+}
+
+/* ==========================================
+   SCRIPT-SPECIFIC TYPOGRAPHY OVERRIDES
+   ========================================== */
+
+/* Georgian (ka) */
+html[lang="ka"] .about-quote,
+html[lang="ka"] .menu-header,
+html[lang="ka"] .events-header,
+html[lang="ka"] .contact-header,
+html[lang="ka"] .share-title,
+html[lang="ka"] .marquee-content,
+html[lang="ka"] .event-name {
+    font-style: normal;
+    letter-spacing: 0;
+    line-height: 1.15;
+}
+
+html[lang="ka"] .about-quote {
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    font-size: clamp(2.5rem, 5.5vw, 6rem);
+}
+
+html[lang="ka"] .about-label,
+html[lang="ka"] .menu-category h3,
+html[lang="ka"] .event-day,
+html[lang="ka"] .contact-block h3,
+html[lang="ka"] .footer-text,
+html[lang="ka"] .hero-meta,
+html[lang="ka"] .ctrl-btn,
+html[lang="ka"] .share-btn {
+    letter-spacing: 0.08em;
+}
+
+/* Ukrainian/Cyrillic (uk) */
+html[lang="uk"] .about-quote,
+html[lang="uk"] .menu-header,
+html[lang="uk"] .events-header,
+html[lang="uk"] .contact-header,
+html[lang="uk"] .share-title,
+html[lang="uk"] .marquee-content,
+html[lang="uk"] .event-name {
+    font-style: italic;
+    letter-spacing: normal;
+    line-height: 1.15;
+}
+
+html[lang="uk"] .about-quote {
+    line-height: 1.2;
+    letter-spacing: normal;
+    font-size: clamp(2.5rem, 5.5vw, 6rem);
+}
+
+html[lang="uk"] .about-label,
+html[lang="uk"] .menu-category h3,
+html[lang="uk"] .event-day,
+html[lang="uk"] .contact-block h3,
+html[lang="uk"] .footer-text,
+html[lang="uk"] .hero-meta,
+html[lang="uk"] .ctrl-btn,
+html[lang="uk"] .share-btn {
+    letter-spacing: 0.08em;
+}
+
+/* CSS classes extracted from inline page.tsx styles */
+.share-title {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 400;
+    font-style: italic;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.share-subtitle {
+    text-align: center;
+    opacity: 0.4;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 2.5rem;
+}
+
+.qr-block-wrapper {
+    margin-top: 3rem;
+    text-align: center;
+}
+
+.qr-code-box {
+    display: inline-block;
+    background: #fff;
+    padding: 16px;
+}
+
+.qr-scan-label {
+    opacity: 0.3;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-top: 1rem;
 }

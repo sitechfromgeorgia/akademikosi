@@ -355,19 +355,9 @@ export default function HomePage() {
 
       // Share
       _s('.share-title', t.shareTitle);
-
-      // Fix font for Georgian headers
-      const geoHeaders = ['.menu-header', '.events-header', '.contact-header', '.about-quote'];
-      geoHeaders.forEach((sel) => {
-        const el = document.querySelector(sel) as HTMLElement | null;
-        if (el) {
-          el.style.fontFamily =
-            lang === 'ka'
-              ? "'Noto Serif Georgian', serif"
-              : "'Instrument Serif', serif";
-          el.style.fontStyle = 'italic';
-        }
-      });
+      _s('.share-subtitle', t.shareSubtitle);
+      _s('.qr-scan-label', t.shareQrText);
+      _s('#nativeShareBtn span', t.shareBtnNative);
 
       localStorage.setItem('akademikosi_lang', lang);
     };
@@ -495,7 +485,7 @@ export default function HomePage() {
         <div className="about-text reveal">
           <div>
             <p className="about-label">The Space</p>
-            <p className="about-info geo">
+            <p className="about-info">
               აკადემიკოსი არის ადგილი, სადაც ხელოვნება, მუსიკა და გემოვნება ერთმანეთს ხვდება.
             </p>
           </div>
@@ -531,36 +521,32 @@ export default function HomePage() {
               </h3>
               {cat.items.map((item) => (
                 <div className="menu-item" key={item.id}>
-                  <span className="menu-name">
-                    {currentLang === 'ka'
-                      ? item.name_ka
-                      : currentLang === 'en'
-                      ? item.name_en
-                      : item.name_uk}
+                  <div className="menu-item-info">
+                    <div className="menu-item-main">
+                      <span className="menu-name">
+                        {currentLang === 'ka'
+                          ? item.name_ka
+                          : currentLang === 'en'
+                          ? item.name_en
+                          : item.name_uk}
+                      </span>
+                      <span className="menu-leader"></span>
+                      <span className="menu-price">{item.price}₾</span>
+                    </div>
                     {(currentLang === 'ka'
                       ? item.description_ka
                       : currentLang === 'en'
                       ? item.description_en
                       : item.description_uk) && (
-                      <>
-                        <br />
-                        <small
-                          style={{
-                            fontWeight: 300,
-                            fontSize: '0.7em',
-                            opacity: 0.5,
-                          }}
-                        >
-                          {currentLang === 'ka'
-                            ? item.description_ka
-                            : currentLang === 'en'
-                            ? item.description_en
-                            : item.description_uk}
-                        </small>
-                      </>
+                      <small className="menu-description">
+                        {currentLang === 'ka'
+                          ? item.description_ka
+                          : currentLang === 'en'
+                          ? item.description_en
+                          : item.description_uk}
+                      </small>
                     )}
-                  </span>
-                  <span className="menu-price">{item.price}₾</span>
+                  </div>
                 </div>
               ))}
             </div>
@@ -678,29 +664,10 @@ export default function HomePage() {
       {/* SHARE & QR */}
       <section className="share-section" id="share">
         <div className="share-inner">
-          <h2
-            className="share-title"
-            style={{
-              fontFamily: "'Instrument Serif', serif",
-              fontSize: 'clamp(2rem,5vw,3.5rem)',
-              fontWeight: 400,
-              fontStyle: 'italic',
-              marginBottom: '1.5rem',
-              textAlign: 'center',
-            }}
-          >
+          <h2 className="share-title">
             გაუზიარე მეგობარს
           </h2>
-          <p
-            style={{
-              textAlign: 'center',
-              opacity: 0.4,
-              fontSize: '0.75rem',
-              letterSpacing: '0.2em',
-              textTransform: 'uppercase',
-              marginBottom: '2.5rem',
-            }}
-          >
+          <p className="share-subtitle">
             Share the ritual
           </p>
 
@@ -758,27 +725,9 @@ export default function HomePage() {
             </a>
           </div>
 
-          <div
-            className="qr-container"
-            style={{ marginTop: '3rem', textAlign: 'center' }}
-          >
-            <div
-              id="qrcode"
-              style={{
-                display: 'inline-block',
-                background: '#fff',
-                padding: '16px',
-              }}
-            ></div>
-            <p
-              style={{
-                opacity: 0.3,
-                fontSize: '0.65rem',
-                letterSpacing: '0.2em',
-                textTransform: 'uppercase',
-                marginTop: '1rem',
-              }}
-            >
+          <div className="qr-block-wrapper">
+            <div id="qrcode" className="qr-code-box"></div>
+            <p className="qr-scan-label">
               Scan to visit
             </p>
           </div>

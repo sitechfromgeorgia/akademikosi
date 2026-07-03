@@ -18,195 +18,239 @@ categories = [
 
 items = []
 
-# Hand Crafted Cocktails
-hc_id = categories[0]["id"]
+# Auto-categorized final products
 items.extend([
-    {"cat": hc_id, "ka": "Akademikosi", "en": "Akademikosi", "uk": "Akademikosi", "desc_ka": "Bitter", "desc_en": "Bitter", "desc_uk": "Bitter", "price": "22"},
-    {"cat": hc_id, "ka": "Harvest", "en": "Harvest", "uk": "Harvest", "desc_ka": "Spicy, Chilli", "desc_en": "Spicy, Chilli", "desc_uk": "Spicy, Chilli", "price": "22"},
-    {"cat": hc_id, "ka": "Bubble Freeze", "en": "Bubble Freeze", "uk": "Bubble Freeze", "desc_ka": "Tropical", "desc_en": "Tropical", "desc_uk": "Tropical", "price": "22"},
-    {"cat": hc_id, "ka": "Berry Gimlet", "en": "Berry Gimlet", "uk": "Berry Gimlet", "desc_ka": "Tropical", "desc_en": "Tropical", "desc_uk": "Tropical", "price": "22"},
-    {"cat": hc_id, "ka": "Dream", "en": "Dream", "uk": "Dream", "desc_ka": "Sweet, Creamy", "desc_en": "Sweet, Creamy", "desc_uk": "Sweet, Creamy", "price": "22"}
+    {"cat": "5e2e6905-0f8b-4396-ff3d-cf3f4f44c885", "ka": 'ტონიკი', "en": 'Tonic water', "uk": 'toniki', "price": '6'},
+    {"cat": "7a4a8b27-2b0d-45b8-bb5f-ef5f6f66e007", "ka": 'წინანდალი ფესვები', "en": 'tsinandali Pesvebi', "uk": 'tsinandali Песвебі', "price": '12'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'არაყი აბსოლუტი ბლუ 50გრ', "en": 'Absolut Blue 50gr', "uk": 'araqi absoluti blu 50gr', "price": '10'},
+    {"cat": "1a8a25c1-6b4d-4952-bbef-8efb0e008441", "ka": 'Absolute Punch Maracuya', "en": 'Absolute Punch Maracuya', "uk": 'Absolute Punch Maracuya', "price": '210'},
+    {"cat": "1a8a25c1-6b4d-4952-bbef-8efb0e008441", "ka": 'აკადემიკოსი', "en": 'Akademikosi', "uk": 'akademikosi', "price": '22', 'desc_ka': 'Bitter', 'desc_en': 'Bitter', 'desc_uk': 'Bitter'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Akashi Japanese Whiskey', "en": 'Akashi Japanese Whiskey', "uk": 'Akashi Japanese Whiskey', "price": '30'},
+    {"cat": "7a4a8b27-2b0d-45b8-bb5f-ef5f6f66e007", "ka": 'Alkanaidze', "en": 'Alkanaidze', "uk": 'Alkanaidze', "price": '13'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Amaretto Disaronno', "en": 'Amaretto Disaronno', "uk": 'Amaretto Disaronno', "price": '14'},
+    {"cat": "6f3f7a16-1a9c-44a7-8a4e-df4f5c55d996", "ka": 'ამერიკანო', "en": 'Americano', "uk": 'amerikano', "price": '8'},
+    {"cat": "1a8a25c1-6b4d-4952-bbef-8efb0e008441", "ka": 'Amora', "en": 'Amora', "uk": 'Amora', "price": '25'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Angostura Rum 7 years', "en": 'Angostura Rum 7 years', "uk": 'Angostura Rum 7 years', "price": '20'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Angostura Rum reserved', "en": 'Angostura Rum reserved', "uk": 'Angostura Rum reserved', "price": '14'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Angostura Rum spiced', "en": 'Angostura Rum spiced', "uk": 'Angostura Rum spiced', "price": '12'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Aperol', "en": 'Aperol', "uk": 'Aperol', "price": '12'},
+    {"cat": "2b9b36d2-7c5e-4063-cc0a-9f0c1f119552", "ka": 'Aperol Spritz', "en": 'Aperol Spritz', "uk": 'Aperol Spritz', "price": '25'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Askaneli Brandy V.S', "en": 'Askaneli Brandy V.S', "uk": 'Askaneli Brandy V.S', "price": '12'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Askaneli Brandy V.S.O.P', "en": 'Askaneli Brandy V.S.O.P', "uk": 'Askaneli Brandy V.S.O.P', "price": '20'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Askaneli Brandy X.O.', "en": 'Askaneli Brandy X.O.', "uk": 'Askaneli Brandy X.O.', "price": '40'},
+    {"cat": "2b9b36d2-7c5e-4063-cc0a-9f0c1f119552", "ka": 'Asti Martini Bottle', "en": 'Asti Martini Bottle', "uk": 'Asti Martini Bottle', "price": '125'},
+    {"cat": "2b9b36d2-7c5e-4063-cc0a-9f0c1f119552", "ka": 'B 52', "en": 'B 52', "uk": 'B 52', "price": '19'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Baileys', "en": 'Baileys', "uk": 'Baileys', "price": '15'},
+    {"cat": "2b9b36d2-7c5e-4063-cc0a-9f0c1f119552", "ka": 'Basil Smash', "en": 'Basil Smash', "uk": 'Basil Smash', "price": '20'},
+    {"cat": "2b9b36d2-7c5e-4063-cc0a-9f0c1f119552", "ka": 'Basil smash strawberry', "en": 'Basil smash strawberry', "uk": 'Basil smash strawberry', "price": '25'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'ჯინი ბიფიტერი 50გრ', "en": 'Beefeater 50gr', "uk": 'Gin bipiteri 50gr', "price": '12'},
+    {"cat": "4d1d58f4-9e7a-4285-ee2c-bf2e3f33b774", "ka": 'ლუდის შემწვარი დაფა', "en": 'Beer fried board', "uk": 'ludis shemtsvari dapa', "price": '60'},
+    {"cat": "2b9b36d2-7c5e-4063-cc0a-9f0c1f119552", "ka": 'Bellini', "en": 'Bellini', "uk": 'Bellini', "price": '22'},
+    {"cat": "1a8a25c1-6b4d-4952-bbef-8efb0e008441", "ka": 'Berry Gimlet', "en": 'Berry Gimlet', "uk": 'Berry Gimlet', "price": '22', 'desc_ka': 'Tropical', 'desc_en': 'Tropical', 'desc_uk': 'Tropical'},
+    {"cat": "2b9b36d2-7c5e-4063-cc0a-9f0c1f119552", "ka": 'Bloody Marry', "en": 'Bloody Marry', "uk": 'Bloody Marry', "price": '22'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Bombay Saphire', "en": 'Bombay Saphire', "uk": 'Bombay Saphire', "price": '16'},
+    {"cat": "1a8a25c1-6b4d-4952-bbef-8efb0e008441", "ka": 'Botanical Drop', "en": 'Botanical Drop', "uk": 'Botanical Drop', "price": '22'},
+    {"cat": "2b9b36d2-7c5e-4063-cc0a-9f0c1f119552", "ka": 'Boulevardier', "en": 'Boulevardier', "uk": 'Boulevardier', "price": '22'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Brokers', "en": 'Brokers', "uk": 'Brokers', "price": '12'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Brokers Pink', "en": 'Brokers Pink', "uk": 'Brokers Pink', "price": '12'},
+    {"cat": "1a8a25c1-6b4d-4952-bbef-8efb0e008441", "ka": 'Bubble Feeze', "en": 'Bubble Feeze', "uk": 'Bubble Feeze', "price": '22', 'desc_ka': 'Tropical', 'desc_en': 'Tropical', 'desc_uk': 'Tropical'},
+    {"cat": "2b9b36d2-7c5e-4063-cc0a-9f0c1f119552", "ka": 'Caipiruska', "en": 'Caipiruska', "uk": 'Caipiruska', "price": '19'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Calvados VSOP', "en": 'Calvados VSOP', "uk": 'Calvados VSOP', "price": '12'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Campari', "en": 'Campari', "uk": 'Campari', "price": '12'},
+    {"cat": "6f3f7a16-1a9c-44a7-8a4e-df4f5c55d996", "ka": 'კაპუჩინო', "en": 'Cappuccino', "uk": 'kapuchino', "price": '10'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'რომი კაპიტან მორგანი ბლექი 50გრ', "en": 'Captain Morgan Black 50gr', "uk": 'Rum kapitan morgani bleki 50gr', "price": '12'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Captain Morgan Spiced Gold', "en": 'Captain Morgan Spiced Gold', "uk": 'Captain Morgan Spiced Gold', "price": '12'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Captain Morgan white', "en": 'Captain Morgan white', "uk": 'Captain Morgan white', "price": '12'},
+    {"cat": "1a8a25c1-6b4d-4952-bbef-8efb0e008441", "ka": 'კაიო', "en": 'CAYO', "uk": 'kaio', "price": '22'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Chacha GiuAAni', "en": 'Chacha GiuAAni', "uk": 'Chacha GiuAAni', "price": '7'},
+    {"cat": "2b9b36d2-7c5e-4063-cc0a-9f0c1f119552", "ka": 'Chacha Sour', "en": 'Chacha Sour', "uk": 'Chacha Sour', "price": '19'},
+    {"cat": "0d7d1e50-5e3a-48eb-ad8b-1b8b9f99a330", "ka": 'ყველის ბურთები', "en": 'Cheese balls', "uk": 'Сирний burtebi', "price": '16'},
+    {"cat": "0d7d1e50-5e3a-48eb-ad8b-1b8b9f99a330", "ka": 'ყველის ჩხირები', "en": 'Cheese Sticks', "uk": 'Сирний chkhirebi', "price": '14'},
+    {"cat": "0d7d1e50-5e3a-48eb-ad8b-1b8b9f99a330", "ka": 'ქათმის ბაიტსები', "en": 'Chicken bites', "uk": 'Курячі baitsebi', "price": '15'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Cointreau', "en": 'Cointreau', "uk": 'Cointreau', "price": '16'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Cold coffee with Baileys', "en": 'Cold coffee with Baileys', "uk": 'Cold coffee with Baileys', "price": '18'},
+    {"cat": "4d1d58f4-9e7a-4285-ee2c-bf2e3f33b774", "ka": 'ლუდი კორონა', "en": 'Corona beer', "uk": 'ludi korona', "price": '15'},
+    {"cat": "2b9b36d2-7c5e-4063-cc0a-9f0c1f119552", "ka": 'Corpse Reviver #2', "en": 'Corpse Reviver #2', "uk": 'Corpse Reviver #2', "price": '20'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Corralejo tequila', "en": 'Corralejo tequila', "uk": 'Corralejo tequila', "price": '22'},
+    {"cat": "2b9b36d2-7c5e-4063-cc0a-9f0c1f119552", "ka": 'Cosmopolitan', "en": 'Cosmopolitan', "uk": 'Cosmopolitan', "price": '20'},
+    {"cat": "2b9b36d2-7c5e-4063-cc0a-9f0c1f119552", "ka": 'Cuba Libre', "en": 'Cuba Libre', "uk": 'Cuba Libre', "price": '20'},
+    {"cat": "2b9b36d2-7c5e-4063-cc0a-9f0c1f119552", "ka": 'დაიკირი', "en": 'Daiquiri', "uk": 'daikiri', "price": '20'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Danzka', "en": 'Danzka', "uk": 'Danzka', "price": '8'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Don Julio Blanco', "en": 'Don Julio Blanco', "uk": 'Don Julio Blanco', "price": '40'},
+    {"cat": "1a8a25c1-6b4d-4952-bbef-8efb0e008441", "ka": 'Dream P', "en": 'Dream P', "uk": 'Dream P', "price": '22', 'desc_ka': 'Sweet, Creamy', 'desc_en': 'Sweet, Creamy', 'desc_uk': 'Sweet, Creamy'},
+    {"cat": "2b9b36d2-7c5e-4063-cc0a-9f0c1f119552", "ka": 'Dry Martini', "en": 'Dry Martini', "uk": 'Dry Martini', "price": '20'},
+    {"cat": "4d1d58f4-9e7a-4285-ee2c-bf2e3f33b774", "ka": 'Erdinger black', "en": 'Erdinger black', "uk": 'Erdinger black', "price": '14'},
+    {"cat": "4d1d58f4-9e7a-4285-ee2c-bf2e3f33b774", "ka": 'Erdinger Brauhaus', "en": 'Erdinger Brauhaus', "uk": 'Erdinger Brauhaus', "price": '18'},
+    {"cat": "6f3f7a16-1a9c-44a7-8a4e-df4f5c55d996", "ka": 'ყავა', "en": 'Espresso', "uk": 'qava', "price": '6'},
+    {"cat": "2b9b36d2-7c5e-4063-cc0a-9f0c1f119552", "ka": 'Espresso Martini', "en": 'Espresso Martini', "uk": 'Espresso Martini', "price": '19'},
+    {"cat": "6f3f7a16-1a9c-44a7-8a4e-df4f5c55d996", "ka": 'ესპრესო მარაკუია ტონიკი', "en": 'Espresso tonic Maracuja', "uk": 'espreso marakuia toniki', "price": '16'},
+    {"cat": "4d1d58f4-9e7a-4285-ee2c-bf2e3f33b774", "ka": 'ესტრეია', "en": 'Estrella', "uk": 'estreia', "price": '13'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Famous Grouse', "en": 'Famous Grouse', "uk": 'Famous Grouse', "price": '12'},
+    {"cat": "0d7d1e50-5e3a-48eb-ad8b-1b8b9f99a330", "ka": 'ფიშ ენდ ჩიფსი', "en": 'Fish and chips', "uk": 'pish end chipsi', "price": '25'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Frangelico', "en": 'Frangelico', "uk": 'Frangelico', "price": '16'},
+    {"cat": "0d7d1e50-5e3a-48eb-ad8b-1b8b9f99a330", "ka": 'კარტოფილი ფრი ყველის სოსუით', "en": 'French fries with cheese sauce', "uk": 'kartopili pri Сирний соусом', "price": '12'},
+    {"cat": "1a8a25c1-6b4d-4952-bbef-8efb0e008441", "ka": 'Frozen Smile', "en": 'Frozen Smile', "uk": 'Frozen Smile', "price": '30'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Gin Breeze', "en": 'Gin Breeze', "uk": 'Gin Breeze', "price": '20'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Gin Cantera Verde', "en": 'Gin Cantera Verde', "uk": 'Gin Cantera Verde', "price": '17'},
+    {"cat": "2b9b36d2-7c5e-4063-cc0a-9f0c1f119552", "ka": 'Gin sour', "en": 'Gin sour', "uk": 'Gin sour', "price": '20'},
+    {"cat": "2b9b36d2-7c5e-4063-cc0a-9f0c1f119552", "ka": 'Gin Sour Maracuya', "en": 'Gin Sour Maracuya', "uk": 'Gin Sour Maracuya', "price": '22'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Gin Tonic', "en": 'Gin Tonic', "uk": 'Gin Tonic', "price": '19'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Gin Tonic Maracuya', "en": 'Gin Tonic Maracuya', "uk": 'Gin Tonic Maracuya', "price": '22'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Glenmorangie', "en": 'Glenmorangie', "uk": 'Glenmorangie', "price": '25'},
+    {"cat": "2b9b36d2-7c5e-4063-cc0a-9f0c1f119552", "ka": 'Godfather', "en": 'Godfather', "uk": 'Godfather', "price": '19'},
+    {"cat": "7a4a8b27-2b0d-45b8-bb5f-ef5f6f66e007", "ka": 'Goruli Mtsvane Kavta Wine', "en": 'Goruli Mtsvane Kavta Wine', "uk": 'Goruli Mtsvane Kavta Wine', "price": '16'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Grey Goose', "en": 'Grey Goose', "uk": 'Grey Goose', "price": '22'},
+    {"cat": "1a8a25c1-6b4d-4952-bbef-8efb0e008441", "ka": 'ჰარვესტი', "en": 'Harvest', "uk": 'harvesti', "price": '22', 'desc_ka': 'Spicy, Chilli', 'desc_en': 'Spicy, Chilli', 'desc_uk': 'Spicy, Chilli'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Havanna Club 3 Anos Gold', "en": 'Havanna Club 3 Anos Gold', "uk": 'Havanna Club 3 Anos Gold', "price": '13'},
+    {"cat": "4d1d58f4-9e7a-4285-ee2c-bf2e3f33b774", "ka": 'Heineken', "en": 'Heineken', "uk": 'Heineken', "price": '12'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Hendricks\'s', "en": 'Hendricks\'s', "uk": 'Hendricks\'s', "price": '22'},
+    {"cat": "5e2e6905-0f8b-4396-ff3d-cf3f4f44c885", "ka": 'Homemade lemonade Berry', "en": 'Homemade lemonade Berry', "uk": 'Homemade lemonade Berry', "price": '15'},
+    {"cat": "5e2e6905-0f8b-4396-ff3d-cf3f4f44c885", "ka": 'Homemade lemonade lemon&mint', "en": 'Homemade lemonade lemon&mint', "uk": 'Homemade lemonade lemon&mint', "price": '12'},
+    {"cat": "5e2e6905-0f8b-4396-ff3d-cf3f4f44c885", "ka": 'Homemade lemonade maracuya', "en": 'Homemade lemonade maracuya', "uk": 'Homemade lemonade maracuya', "price": '15'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Hussong\'s tequila', "en": 'Hussong\'s tequila', "uk": 'Hussong\'s tequila', "price": '35'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Jack Daniels', "en": 'Jack Daniels', "uk": 'Jack Daniels', "price": '16'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'ლიქიორი იეგერმაისტერი 50გრ', "en": 'Jägermeister 50gr', "uk": 'likiori iegermaisteri 50gr', "price": '12'},
+    {"cat": "5e2e6905-0f8b-4396-ff3d-cf3f4f44c885", "ka": 'Jagermeister Energy', "en": 'Jagermeister Energy', "uk": 'Jagermeister Energy', "price": '20'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Jagermeister Juice', "en": 'Jagermeister Juice', "uk": 'Jagermeister Juice', "price": '19'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Jameson', "en": 'Jameson', "uk": 'Jameson', "price": '15'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Jose Cuervo Silver 50gr', "en": 'Jose Cuervo Silver 50gr', "uk": 'Jose Cuervo Silver 50gr', "price": '14'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Kahlua', "en": 'Kahlua', "uk": 'Kahlua', "price": '12'},
+    {"cat": "0d7d1e50-5e3a-48eb-ad8b-1b8b9f99a330", "ka": 'კეტჩუპი', "en": 'Ketchup', "uk": 'ketchupi', "price": '3'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Kinahans', "en": 'Kinahans', "uk": 'Kinahans', "price": '12'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Kinahans Heritage', "en": 'Kinahans Heritage', "uk": 'Kinahans Heritage', "price": '25'},
+    {"cat": "7a4a8b27-2b0d-45b8-bb5f-ef5f6f66e007", "ka": 'Kindzmarauli bottle Beroza', "en": 'Kindzmarauli bottle Beroza', "uk": 'Kindzmarauli bottle Beroza', "price": '60'},
+    {"cat": "7a4a8b27-2b0d-45b8-bb5f-ef5f6f66e007", "ka": 'Kisi GiuAAni', "en": 'Kisi GiuAAni', "uk": 'Kisi GiuAAni', "price": '14'},
+    {"cat": "7a4a8b27-2b0d-45b8-bb5f-ef5f6f66e007", "ka": 'კრახუნა', "en": 'Krakhuna', "uk": 'krakhuna', "price": '16'},
+    {"cat": "7a4a8b27-2b0d-45b8-bb5f-ef5f6f66e007", "ka": 'Lafitte de fit', "en": 'Lafitte de fit', "uk": 'Lafitte de fit', "price": '20'},
+    {"cat": "6f3f7a16-1a9c-44a7-8a4e-df4f5c55d996", "ka": 'ლატე', "en": 'Latte', "uk": 'late', "price": '14'},
+    {"cat": "2b9b36d2-7c5e-4063-cc0a-9f0c1f119552", "ka": 'Limoncello spritz', "en": 'Limoncello spritz', "uk": 'Limoncello spritz', "price": '25'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Limonchello', "en": 'Limonchello', "uk": 'Limonchello', "price": '12'},
+    {"cat": "5e2e6905-0f8b-4396-ff3d-cf3f4f44c885", "ka": 'Long Energy', "en": 'Long Energy', "uk": 'Long Energy', "price": '30'},
+    {"cat": "2b9b36d2-7c5e-4063-cc0a-9f0c1f119552", "ka": 'ლონგ აილენდი', "en": 'Long Island', "uk": 'long ailendi', "price": '25'},
+    {"cat": "1a8a25c1-6b4d-4952-bbef-8efb0e008441", "ka": 'ლუნა', "en": 'Luna', "uk": 'luna', "price": '22'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Macallan 12 Y.', "en": 'Macallan 12 Y.', "uk": 'Macallan 12 Y.', "price": '65'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Magdana Gin', "en": 'Magdana Gin', "uk": 'Magdana Gin', "price": '10'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Mai Tai', "en": 'Mai Tai', "uk": 'Mai Tai', "price": '22'},
+    {"cat": "8b5b9c38-3c1e-46c9-cc6f-ff6f7e77f118", "ka": 'Majesta Brut sparklin wine', "en": 'Majesta Brut sparklin wine', "uk": 'Majesta Brut sparklin wine', "price": '60'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Manavi GiuAAni', "en": 'Manavi GiuAAni', "uk": 'Manavi GiuAAni', "price": '14'},
+    {"cat": "2b9b36d2-7c5e-4063-cc0a-9f0c1f119552", "ka": 'Manhatten', "en": 'Manhatten', "uk": 'Manhatten', "price": '20'},
+    {"cat": "2b9b36d2-7c5e-4063-cc0a-9f0c1f119552", "ka": 'Margarita', "en": 'Margarita', "uk": 'Margarita', "price": '20'},
+    {"cat": "2b9b36d2-7c5e-4063-cc0a-9f0c1f119552", "ka": 'ვერმუტი მარტინი ბიანკო', "en": 'Martini Bianco', "uk": 'vermuti martini bianko', "price": '10'},
+    {"cat": "2b9b36d2-7c5e-4063-cc0a-9f0c1f119552", "ka": 'ვერმუტი მარტინი როსსო', "en": 'Martini Rosso', "uk": 'vermuti martini rosso', "price": '10'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Milagro Silver', "en": 'Milagro Silver', "uk": 'Milagro Silver', "price": '18'},
+    {"cat": "2b9b36d2-7c5e-4063-cc0a-9f0c1f119552", "ka": 'Mimosa', "en": 'Mimosa', "uk": 'Mimosa', "price": '20'},
+    {"cat": "1a8a25c1-6b4d-4952-bbef-8efb0e008441", "ka": 'Moanaa', "en": 'Moanaa', "uk": 'Moanaa', "price": '25'},
+    {"cat": "2b9b36d2-7c5e-4063-cc0a-9f0c1f119552", "ka": 'Mojito', "en": 'Mojito', "uk": 'Mojito', "price": '20'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'ვისკი მანქი შოულდერი 50გრ', "en": 'Monkey Shoulder 50gr', "uk": 'Whiskey manki shoulderi 50gr', "price": '24'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Mont Blanc', "en": 'Mont Blanc', "uk": 'Mont Blanc', "price": '26'},
+    {"cat": "7a4a8b27-2b0d-45b8-bb5f-ef5f6f66e007", "ka": 'Mtsvane Qvevri Churi Chinebuli', "en": 'Mtsvane Qvevri Churi Chinebuli', "uk": 'Mtsvane Qvevri Churi Chinebuli', "price": '15'},
+    {"cat": "2b9b36d2-7c5e-4063-cc0a-9f0c1f119552", "ka": 'Negroni', "en": 'Negroni', "uk": 'Negroni', "price": '20'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Old Fashioned', "en": 'Old Fashioned', "uk": 'Old Fashioned', "price": '20'},
+    {"cat": "0d7d1e50-5e3a-48eb-ad8b-1b8b9f99a330", "ka": 'ხახვის რგოლები', "en": 'Onion rings', "uk": 'khakhvis rgolebi', "price": '12'},
+    {"cat": "1e8e2f61-6f4b-49fc-be9c-2c9c0d00f441", "ka": 'ტაფის ხაჭაპური', "en": 'Pan Khacapuri', "uk": 'Пательня Хачапурі', "price": '18'},
+    {"cat": "1e8e2f61-6f4b-49fc-be9c-2c9c0d00f441", "ka": 'ტაფის ხაჭაპური შებოლილი სულგუნით', "en": 'Pan Khachapuri with smoked Sulguni', "uk": 'Пательня Хачапурі копчений Сулугуні', "price": '20'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'კალვადოსი პაპადუს ვი ესი 50გრ', "en": 'Papidoux Vs 50gr', "uk": 'kalvadosi papadus vi esi 50gr', "price": '11'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Patron Anejo', "en": 'Patron Anejo', "uk": 'Patron Anejo', "price": '40'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Patron Reposado', "en": 'Patron Reposado', "uk": 'Patron Reposado', "price": '45'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Patron silver Tequila', "en": 'Patron silver Tequila', "uk": 'Patron silver Tequila', "price": '40'},
+    {"cat": "8b5b9c38-3c1e-46c9-cc6f-ff6f7e77f118", "ka": 'Prosecco Millesimato', "en": 'Prosecco Millesimato', "uk": 'Prosecco Millesimato', "price": '75'},
+    {"cat": "5e2e6905-0f8b-4396-ff3d-cf3f4f44c885", "ka": 'Red bull yellow', "en": 'Red bull yellow', "uk": 'Red bull yellow', "price": '12'},
+    {"cat": "1a8a25c1-6b4d-4952-bbef-8efb0e008441", "ka": 'Rum Punch Maracuya', "en": 'Rum Punch Maracuya', "uk": 'Rum Punch Maracuya', "price": '230'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'San Jose', "en": 'San Jose', "uk": 'San Jose', "price": '12'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Sarajijshvili VS', "en": 'Sarajijshvili VS', "uk": 'Sarajijshvili VS', "price": '15'},
+    {"cat": "7a4a8b27-2b0d-45b8-bb5f-ef5f6f66e007", "ka": 'Shavkapito Agidela', "en": 'Shavkapito Agidela', "uk": 'Shavkapito Agidela', "price": '17'},
+    {"cat": "2b9b36d2-7c5e-4063-cc0a-9f0c1f119552", "ka": 'Sidecar', "en": 'Sidecar', "uk": 'Sidecar', "price": '20'},
+    {"cat": "2b9b36d2-7c5e-4063-cc0a-9f0c1f119552", "ka": 'SOUR', "en": 'SOUR', "uk": 'SOUR', "price": '6'},
+    {"cat": "0d7d1e50-5e3a-48eb-ad8b-1b8b9f99a330", "ka": 'შესუნელებული ფრი', "en": 'Spiced French fries', "uk": 'Спеціями pri', "price": '10'},
+    {"cat": "2b9b36d2-7c5e-4063-cc0a-9f0c1f119552", "ka": 'Strawberry Sour', "en": 'Strawberry Sour', "uk": 'Strawberry Sour', "price": '22'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'შტრო 80', "en": 'Stroh Rum 80', "uk": 'shtro 80', "price": '18'},
+    {"cat": "1a8a25c1-6b4d-4952-bbef-8efb0e008441", "ka": 'Sunset', "en": 'Sunset', "uk": 'Sunset', "price": '22'},
+    {"cat": "0d7d1e50-5e3a-48eb-ad8b-1b8b9f99a330", "ka": 'ტკბილცხარე სოუსი', "en": 'Sweet chili', "uk": 'Солодкеბილცხარე соус', "price": '4'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Tanqueray London dry', "en": 'Tanqueray London dry', "uk": 'Tanqueray London dry', "price": '15'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Tequila Don Julio Reposado', "en": 'Tequila Don Julio Reposado', "uk": 'Tequila Don Julio Reposado', "price": '45'},
+    {"cat": "2b9b36d2-7c5e-4063-cc0a-9f0c1f119552", "ka": 'Tequila Sunrise', "en": 'Tequila Sunrise', "uk": 'Tequila Sunrise', "price": '22'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'The Botanist', "en": 'The Botanist', "uk": 'The Botanist', "price": '22'},
+    {"cat": "8b5b9c38-3c1e-46c9-cc6f-ff6f7e77f118", "ka": 'Tosti Butterfly Sparkling Wine bottle', "en": 'Tosti Butterfly Sparkling Wine bottle', "uk": 'Tosti Butterfly Sparkling Wine bottle', "price": '85'},
+    {"cat": "8b5b9c38-3c1e-46c9-cc6f-ff6f7e77f118", "ka": 'Tosti Prosecco extra dry Bottle', "en": 'Tosti Prosecco extra dry Bottle', "uk": 'Tosti Prosecco extra dry Bottle', "price": '85'},
+    {"cat": "7a4a8b27-2b0d-45b8-bb5f-ef5f6f66e007", "ka": 'Tsolikauri Churi Chinebuli', "en": 'Tsolikauri Churi Chinebuli', "uk": 'Tsolikauri Churi Chinebuli', "price": '17'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Tullamore Dew 50gr - ვისკი ტულამორ დიუ 50გრ', "en": 'Tullamore Dew 50gr - Whiskey tulamor diu 50gr', "uk": 'Tullamore Dew 50gr - Whiskey tulamor diu 50gr', "price": '15'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Vodka Energy', "en": 'Vodka Energy', "uk": 'Vodka Energy', "price": '19'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Vodka Juice', "en": 'Vodka Juice', "uk": 'Vodka Juice', "price": '19'},
+    {"cat": "2b9b36d2-7c5e-4063-cc0a-9f0c1f119552", "ka": 'Vodka Martini', "en": 'Vodka Martini', "uk": 'Vodka Martini', "price": '20'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Whiskey Bunnahabhain 12 years', "en": 'Whiskey Bunnahabhain 12 years', "uk": 'Whiskey Bunnahabhain 12 years', "price": '45'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Whiskey Glenturret 10 years', "en": 'Whiskey Glenturret 10 years', "uk": 'Whiskey Glenturret 10 years', "price": '50'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'Whiskey Ledeig single malt 10 years', "en": 'Whiskey Ledeig single malt 10 years', "uk": 'Whiskey Ledeig single malt 10 years', "price": '40'},
+    {"cat": "2b9b36d2-7c5e-4063-cc0a-9f0c1f119552", "ka": 'Whiskey Sour', "en": 'Whiskey Sour', "uk": 'Whiskey Sour', "price": '20'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'White Bacardi Rum', "en": 'White Bacardi Rum', "uk": 'White Bacardi Rum', "price": '12'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'ვისკი ვაილდ თარქი 81 პფ 50გრ', "en": 'Wild Turkey 81 PF 50gr', "uk": 'Whiskey vaild tarki 81 pp 50gr', "price": '20'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'აბსენტი ქსენტა აბსენტა 50გრ', "en": 'Xenta Absenta 50gr', "uk": 'absenti ksenta absenta 50gr', "price": '20'},
+    {"cat": "5e2e6905-0f8b-4396-ff3d-cf3f4f44c885", "ka": 'XL', "en": 'XL', "uk": 'XL', "price": '8'},
+    {"cat": "1a8a25c1-6b4d-4952-bbef-8efb0e008441", "ka": 'აკადემიური აპეროლ შპრიცი', "en": 'Academic Spritz', "uk": 'akademiuri aperol shpritsi', "price": '24'},
+    {"cat": "7a4a8b27-2b0d-45b8-bb5f-ef5f6f66e007", "ka": 'ალექსანდროული ფესვები', "en": 'aleksandrouli Pesvebi', "uk": 'aleksandrouli Песвебі', "price": '16'},
+    {"cat": "1a8a25c1-6b4d-4952-bbef-8efb0e008441", "ka": 'აურორა', "en": 'Aurora', "uk": 'aurora', "price": '22'},
+    {"cat": "7a4a8b27-2b0d-45b8-bb5f-ef5f6f66e007", "ka": 'ახმეტელი ჭაჭა', "en": 'Akhmeteli Chacha', "uk": 'Ахметелі chacha', "price": '8'},
+    {"cat": "0d7d1e50-5e3a-48eb-ad8b-1b8b9f99a330", "ka": 'კარტოფილი ფრი', "en": 'French fries', "uk": 'kartopili pri', "price": '8'},
+    {"cat": "7a4a8b27-2b0d-45b8-bb5f-ef5f6f66e007", "ka": 'კახური მწვანე ხმეტელი', "en": 'kakhuri mtsvane khmeteli', "uk": 'kakhuri mtsvane khmeteli', "price": '14'},
+    {"cat": "5e2e6905-0f8b-4396-ff3d-cf3f4f44c885", "ka": 'კოკა კოლა', "en": 'coca cola', "uk": 'koka kola', "price": '5'},
+    {"cat": "7a4a8b27-2b0d-45b8-bb5f-ef5f6f66e007", "ka": 'კრახუნა ფესვები', "en": 'krakhuna Pesvebi', "uk": 'krakhuna Песвебі', "price": '15'},
+    {"cat": "6f3f7a16-1a9c-44a7-8a4e-df4f5c55d996", "ka": 'მთის შავი ცეილონი', "en": 'Mountain Black Ceylon დიდი ჩაიდანი', "uk": 'Гірський Чорний Цейлон', "price": '14'},
+    {"cat": "6f3f7a16-1a9c-44a7-8a4e-df4f5c55d996", "ka": 'მთის შავი ცეილონი', "en": 'Mountain Black Ceylon პატარა ჩაიდანი', "uk": 'Гірський Чорний Цейлон', "price": '10'},
+    {"cat": "7a4a8b27-2b0d-45b8-bb5f-ef5f6f66e007", "ka": 'მუკუზანი წით. მშრ ჭიქა ახმეტელი', "en": 'Mukuzani red dry Glass', "uk": 'mukuzani Червоне Сухе Бокал Ахметелі', "price": '14'},
+    {"cat": "2b9b36d2-7c5e-4063-cc0a-9f0c1f119552", "ka": 'ნივრიანი არაჟანი', "en": 'Garlic sour cream sauce', "uk": 'nivriani сметана', "price": '4'},
+    {"cat": "7a4a8b27-2b0d-45b8-bb5f-ef5f6f66e007", "ka": 'ოჯალეში, წით.ნახ.ტკ - BEROZA MARANI', "en": 'ჭიქა', "uk": 'ojaleshi, Червонеნახ.ტკ - BEROZA MARANI', "price": '15'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'რეზონიაკი', "en": 'Rezonyak', "uk": 'rezoniaki', "price": '9'},
+    {"cat": "7a4a8b27-2b0d-45b8-bb5f-ef5f6f66e007", "ka": 'როზე ნახ. ტკბილი - OneLove', "en": 'ჭიქა', "uk": 'roze Напів- Солодке - OneLove', "price": '13'},
+    {"cat": "7a4a8b27-2b0d-45b8-bb5f-ef5f6f66e007", "ka": 'როზე ნახ. ტკბილი - OneLove', "en": 'ბოთლი', "uk": 'roze Напів- Солодке - OneLove', "price": '65'},
+    {"cat": "7a4a8b27-2b0d-45b8-bb5f-ef5f6f66e007", "ka": 'რქაწითელი ახმეტელი', "en": 'rkatsiteli Akhmeteli', "uk": 'rkatsiteli Ахметелі', "price": '14'},
+    {"cat": "6f3f7a16-1a9c-44a7-8a4e-df4f5c55d996", "ka": 'სამეფო დესერტი', "en": 'Royal Desert დიდი ჩაიდანი', "uk": 'Королівський Десерт', "price": '14'},
+    {"cat": "6f3f7a16-1a9c-44a7-8a4e-df4f5c55d996", "ka": 'სამეფო დესერტი', "en": 'Royal Desert პატარა ჩაიდანი', "uk": 'Королівський Десерт', "price": '10'},
+    {"cat": "2b9b36d2-7c5e-4063-cc0a-9f0c1f119552", "ka": 'საუსეპი ჩაი', "en": 'Soursop Tea დიდი ჩაიდანი', "uk": 'Саусеп Чай', "price": '14'},
+    {"cat": "2b9b36d2-7c5e-4063-cc0a-9f0c1f119552", "ka": 'საუსეპი ჩაი', "en": 'Soursop Tea პატარა ჩიდანი', "uk": 'Саусеп Чай', "price": '10'},
+    {"cat": "7a4a8b27-2b0d-45b8-bb5f-ef5f6f66e007", "ka": 'საფერავი პეტრა', "en": 'Saperavi Petra', "uk": 'saperavi petra', "price": '15'},
+    {"cat": "7a4a8b27-2b0d-45b8-bb5f-ef5f6f66e007", "ka": 'საფერავი პრემიუმი ფესვები', "en": 'saperavi premiumi Pesvebi', "uk": 'saperavi premiumi Песвебі', "price": '15'},
+    {"cat": "7a4a8b27-2b0d-45b8-bb5f-ef5f6f66e007", "ka": 'საფერავი წით მშრალი ახმეტელი', "en": 'Saperavi red dry', "uk": 'saperavi tsit Сухеალი Ахметелі', "price": '13'},
+    {"cat": "7a4a8b27-2b0d-45b8-bb5f-ef5f6f66e007", "ka": 'ტვიში გიუანი', "en": 'tvishi giuani', "uk": 'tvishi giuani', "price": '15'},
+    {"cat": "7a4a8b27-2b0d-45b8-bb5f-ef5f6f66e007", "ka": 'ფესვები ტვიში', "en": 'Pesvebi tvishi', "uk": 'Песвебі tvishi', "price": '16'},
+    {"cat": "0d7d1e50-5e3a-48eb-ad8b-1b8b9f99a330", "ka": 'ქათმის ფრთები ყველის სოუსით', "en": 'Chicken Wings', "uk": 'Курячі Крила Сирний соусთ', "price": '18'},
+    {"cat": "0d7d1e50-5e3a-48eb-ad8b-1b8b9f99a330", "ka": 'ქათმის ფრთები', "en": 'Chicken Wings', "uk": 'Курячі Крила', "price": '14'},
+    {"cat": "0d7d1e50-5e3a-48eb-ad8b-1b8b9f99a330", "ka": 'ქათმის ფრთები აზიურად', "en": 'Chicken wings asian', "uk": 'Курячі Крила по-азійськи', "price": '16'},
+    {"cat": "0d7d1e50-5e3a-48eb-ad8b-1b8b9f99a330", "ka": 'ქათმის ფრთები აჯიკით', "en": 'Chicken Wings with Adjika', "uk": 'Курячі Крила з аджикою', "price": '16'},
+    {"cat": "7a4a8b27-2b0d-45b8-bb5f-ef5f6f66e007", "ka": 'ქინძმარაული ფესვები', "en": 'kindzmarauli Pesvebi', "uk": 'kindzmarauli Песвебі', "price": '14'},
+    {"cat": "7a4a8b27-2b0d-45b8-bb5f-ef5f6f66e007", "ka": 'ქინძმარაული, წით.ნახ.ტკ - BEROZA MARANI', "en": 'ჭიქა', "uk": 'kindzmarauli, Червонеნახ.ტკ - BEROZA MARANI', "price": '12'},
+    {"cat": "7a4a8b27-2b0d-45b8-bb5f-ef5f6f66e007", "ka": 'ქისი თეთრ. მშრ. ახმეტელი', "en": 'Kisi wgite dry Akhmeteli', "uk": 'kisi tetr. Сухе. Ахметелі', "price": '14'},
+    {"cat": "7a4a8b27-2b0d-45b8-bb5f-ef5f6f66e007", "ka": 'ცოლიკაური, თეთ.მშრ. - BEROZA MARANI', "en": 'ჭიქა', "uk": 'tsolikauri, Білеმშრ. - BEROZA MARANI', "price": '12'},
+    {"cat": "5e2e6905-0f8b-4396-ff3d-cf3f4f44c885", "ka": 'წვენი', "en": 'juce', "uk": 'Сік', "price": '5'},
+    {"cat": "7a4a8b27-2b0d-45b8-bb5f-ef5f6f66e007", "ka": 'წინანდალი თეთრ. მშრ. ჭიქა ახმეტელი', "en": 'tsinandali tetr. Dry. Glass Akhmeteli', "uk": 'tsinandali tetr. Сухе. Бокал Ахметелі', "price": '12'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'ჭაჭა ასკანელი ოქრო', "en": 'Chacha _ Askaneli gold 50გრ', "uk": 'chacha askaneli okro', "price": '7'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'ჭაჭა ვარგა კლასიკი', "en": 'Chacha Varga Clasic', "uk": 'chacha Варга Класик', "price": '12'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'ჭაჭა ვარგა რეზერვი', "en": 'Chacha Varga Reserve', "uk": 'chacha Варга Резерв', "price": '14'},
+    {"cat": "7a4a8b27-2b0d-45b8-bb5f-ef5f6f66e007", "ka": 'ხვანჭკარა ფესვები', "en": 'khvanchkara Pesvebi', "uk": 'khvanchkara Песвебі', "price": '16'},
+    {"cat": "7a4a8b27-2b0d-45b8-bb5f-ef5f6f66e007", "ka": 'ხვანჭკარა, წთ.ნხ.ტკ - BEROZA MARANI', "en": 'ბოთლი', "uk": 'khvanchkara, წთ.ნხ.Солодке - BEROZA MARANI', "price": '16'},
+    {"cat": "3c0c47e3-8d6f-4174-dd1b-af1d2e22a663", "ka": 'ჰენესი VS 50 გრ', "en": 'Hennessy VS 50gr', "uk": 'henesi VS 50 gr', "price": '30'},
 ])
-
-# Classic Cocktails
-cl_id = categories[1]["id"]
-for name in ["Negroni", "Whiskey Sour", "Gin Sour Maracuya", "Aperol / Limoncello Spritz", "Mai Tai", "Daiquiri / Margarita", "Old Fashioned", "Espresso Martini", "Gin Breeze / Basil Smash"]:
-    price = "20" if name == "Negroni" else ("22" if "Maracuya" in name or "Spritz" in name else "19")
-    items.append({"cat": cl_id, "ka": name, "en": name, "uk": name, "price": price})
-
-# Spirits
-sp_id = categories[2]["id"]
-spirits_list = [
-    ("Aperol", "11"), ("Campari", "12"), ("Jagermeister", "10"), ("Limoncello", "11"),
-    ("Absolut", "10"), ("Gray Goose", "20"), ("Tullamore Dew", "14"), ("Jameson", "15"),
-    ("Jack Daniel's", "16"), ("Monkey Shoulder", "22"), ("Hendrick's", "22"), ("The Botanist", "22"),
-    ("Beefeater", "12"), ("Tanqueray", "15"), ("Bombay", "16"), ("Captain Morgan", "11"),
-    ("Havana Club", "13"), ("Bacardi", "12"), ("Hennessy VS", "29"), ("Milagro Reposado", "18"),
-    ("Jose Cuervo", "14")
-]
-for name, price in spirits_list:
-    items.append({"cat": sp_id, "ka": name, "en": name, "uk": name, "price": price})
-
-# Beer
-be_id = categories[3]["id"]
-beers = [
-    ("Heineken", "12"), ("Corona", "14"), ("Estrella", "11"),
-    ("Lowenbrau", "12"), ("Tuati", "15"), ("Cider", "17/38")
-]
-for name, price in beers:
-    items.append({"cat": be_id, "ka": name, "en": name, "uk": name, "price": price})
-
-# Soft Drinks
-sd_id = categories[4]["id"]
-soft_drinks = [
-    ("წყალი", "Water 0.5", "Вода 0.5", "3"),
-    ("ბორჯომი", "Borjomi 0.5", "Боржомі 0.5", "4"),
-    ("კოკა-კოლა / ფანტა / სპრაიტი / ტონიკი", "Coca-Cola / Fanta / Sprite / Tonic", "Кока-кола / Фанта / Спрайт / Тонік", "5"),
-    ("რედ ბული", "Red Bull", "Ред Булл", "10"),
-    ("წვენი", "Juice", "Сік", "5"),
-    ("ლიმონათი", "Lemonade", "Лимонад", "10"),
-    ("ცივი ჩაი", "Ice Tea", "Холодний чай", "8")
-]
-for ka, en, uk, price in soft_drinks:
-    items.append({"cat": sd_id, "ka": ka, "en": en, "uk": uk, "price": price})
-
-# Coffee & Tea
-ct_id = categories[5]["id"]
-coffee_tea = [
-    ("ესპრესო", "Espresso", "Еспресо", "5"),
-    ("ამერიკანო", "Americano", "Американо", "6"),
-    ("კაპუჩინო", "Cappuccino", "Капучино", "7"),
-    ("ლატე", "Latte", "Лате", "8"),
-    ("ცივი ყავა ნაყინით", "Ice Coffee with Ice Cream", "Холодна кава з морозивом", "10"),
-    ("ჩაი (მწვანე / შავი / ხილის)", "Tea (Green / Black / Fruit)", "Чай (зелений / чорний / фруктовий)", "6"),
-    ("ცხელი შოკოლადი", "Hot Chocolate", "Гарячий шоколад", "8"),
-    ("მილქშეიქი", "Milkshake", "Мілкшейк", "10"),
-    ("სმუზი", "Smoothie", "Смузі", "10"),
-    ("ფრეში (ფორთოხალი / გრეიფრუტი / ვაშლი)", "Fresh Juice (Orange / Grapefruit / Apple)", "Фреш (апельсин / грейпфрут / яблуко)", "12")
-]
-for ka, en, uk, price in coffee_tea:
-    items.append({"cat": ct_id, "ka": ka, "en": en, "uk": uk, "price": price})
-
-# Wine
-wn_id = categories[6]["id"]
-wines = [
-    ("საფერავი", "Saperavi", "Сапераві", "10 / 45"),
-    ("რქაწითელი", "Rkatsiteli", "Ркацителі", "8 / 35"),
-    ("მწვანე", "Mtsvane", "Мцване", "9 / 40"),
-    ("ქისი", "Kisi", "Кісі", "9 / 40"),
-    ("წინანდალი", "Tsinandali", "Цинандалі", "8 / 35"),
-    ("ქინძმარაული", "Kindzmarauli", "Кіндзмараулі", "9 / 40"),
-    ("ხაშმის საფერავი", "Khashmi Saperavi", "Хашмі Сапераві", "12 / 55"),
-    ("თავკვერი", "Tavkveri", "Тавквері", "9 / 40")
-]
-for ka, en, uk, price in wines:
-    items.append({"cat": wn_id, "ka": ka, "en": en, "uk": uk, "price": price})
-
-# Sparkling Wine
-sw_id = categories[7]["id"]
-sparkling = [
-    ("პროსეკო", "Prosecco", "Просекко", "12 / 55"),
-    ("ასკანელი", "Askaneli", "Асканелі", "35"),
-    ("ბაგრატიონი", "Bagrationi", "Багратіоні", "25")
-]
-for ka, en, uk, price in sparkling:
-    items.append({"cat": sw_id, "ka": ka, "en": en, "uk": uk, "price": price})
-
-# Salads
-sl_id = categories[8]["id"]
-salads = [
-    ("ცეზარი ქათმით", "Caesar Salad with Chicken", "Цезар з куркою", "18"),
-    ("ცეზარი კრევეტით", "Caesar Salad with Shrimps", "Цезар з креветками", "22"),
-    ("ბერძნული სალათი", "Greek Salad", "Грецький салат", "14"),
-    ("ბოსტნეულის სალათი", "Vegetable Salad", "Овочевий салат", "12"),
-    ("ბოსტნეულის სალათი ნიგვზით", "Vegetable Salad with Walnuts", "Овочевий салат з горіхами", "14")
-]
-for ka, en, uk, price in salads:
-    items.append({"cat": sl_id, "ka": ka, "en": en, "uk": uk, "price": price})
-
-# Snacks
-sn_id = categories[9]["id"]
-snacks = [
-    ("კარტოფილი ფრი", "French Fries", "Картопля фрі", "8"),
-    ("მექსიკური კარტოფილი", "Mexican Potatoes", "Картопля по-мексиканськи", "10"),
-    ("კარტოფილი ფრი ყველით და ბეკონით", "French Fries with Cheese and Bacon", "Картопля фрі з сиром та беконом", "14"),
-    ("ყველის ბურთულები", "Cheese Balls", "Сирні кульки", "12"),
-    ("ყველის ასორტი", "Cheese Platter", "Сирна тарілка", "25"),
-    ("ხილის ასორტი", "Fruit Platter", "Фруктова тарілка", "20"),
-    ("მისაყოლებელი ლუდზე", "Beer Board", "Пивна тарілка", "25"),
-    ("გრილზე შემწვარი ბოსტნეული", "Grilled Vegetables", "Овочі на грилі", "12"),
-    ("ქათმის ნაგეთსები", "Chicken Nuggets", "Курячі нагетси", "12"),
-    ("ქათმის ფრთები ბარბექიუ", "BBQ Chicken Wings", "Курячі крильця барбекю", "14"),
-    ("ყველის ჩხირები", "Cheese Sticks", "Сирні палички", "12"),
-    ("ნიორის პური", "Garlic Bread", "Часниковий хліб", "8"),
-    ("ედამამე", "Edamame", "Едамаме", "10")
-]
-for ka, en, uk, price in snacks:
-    items.append({"cat": sn_id, "ka": ka, "en": en, "uk": uk, "price": price})
-
-# Pizza & Dough
-pz_id = categories[10]["id"]
-pizza = [
-    ("პიცა მარგარიტა", "Pizza Margherita", "Піца Маргарита", "18"),
-    ("პიცა პეპერონი", "Pizza Pepperoni", "Піца Пепероні", "22"),
-    ("პიცა ოთხი ყველი", "Pizza Four Cheese", "Піца чотири сири", "24"),
-    ("პიცა პროშუტო", "Pizza Prosciutto", "Піца Прошуто", "24"),
-    ("პიცა ვეგეტარიანული", "Pizza Vegetarian", "Піца Вегетаріанська", "18"),
-    ("პიცა ჩიკენ ბარბექიუ", "Pizza Chicken BBQ", "Піца з куркою барбекю", "22"),
-    ("იმერული ხაჭაპური", "Imeruli Khachapuri", "Хачапурі Імеретинський", "15"),
-    ("მეგრული ხაჭაპური", "Megruli Khachapuri", "Хачапурі Мегрельський", "18"),
-    ("აჭარული ხაჭაპური", "Adjaruli Khachapuri", "Хачапурі Аджарський", "16"),
-    ("ლობიანი", "Lobiani", "Лобіані", "12")
-]
-for ka, en, uk, price in pizza:
-    items.append({"cat": pz_id, "ka": ka, "en": en, "uk": uk, "price": price})
-
-# Burgers
-bg_id = categories[11]["id"]
-burgers = [
-    ("საქონლის ბურგერი", "Beef Burger", "Бургер з яловичиною", "20"),
-    ("ქათმის ბურგერი", "Chicken Burger", "Бургер з куркою", "18"),
-    ("ორმაგი ბურგერი", "Double Burger", "Подвійний бургер", "26"),
-    ("კლაბ სენდვიჩი", "Club Sandwich", "Клаб-сендвіч", "16"),
-    ("ვეგეტარიანული ბურგერი", "Veggie Burger", "Вегетаріанський бургер", "16"),
-    ("ჩიზბურგერი", "Cheeseburger", "Чізбургер", "18")
-]
-for ka, en, uk, price in burgers:
-    items.append({"cat": bg_id, "ka": ka, "en": en, "uk": uk, "price": price})
-
-# Desserts
-ds_id = categories[12]["id"]
-desserts = [
-    ("ჩიზქეიქი", "Cheesecake", "Чізкейк", "12"),
-    ("ბრაუნი ნაყინით", "Brownie with Ice Cream", "Брауні з морозивом", "12"),
-    ("ნაყინის ასორტი", "Ice Cream Platter", "Асорті морозива", "10"),
-    ("ვაფლი ხილით და ნაყინით", "Waffle with Fruit and Ice Cream", "Вафлі з фруктами та морозивом", "14"),
-    ("ვაფლი შოკოლადით", "Waffle with Chocolate", "Вафлі з шоколадом", "12"),
-    ("ვაფლი კარამელით", "Waffle with Caramel", "Вафлі з карамеллю", "12")
-]
-for ka, en, uk, price in desserts:
-    items.append({"cat": ds_id, "ka": ka, "en": en, "uk": uk, "price": price})
 
 sql = []
 sql.append("TRUNCATE menu_items, menu_categories, events CASCADE;\n")
 
+def esc(s):
+    return s.replace("'", "''")
+
 # Categories
 cat_lines = []
 for c in categories:
-    # validate uuid
     uuid.UUID(c["id"])
-    cat_lines.append(f"('{c['id']}', '{c['name_ka']}', '{c['name_en']}', '{c['name_uk']}', {c['order_index']})")
+    cat_lines.append(f"('{c['id']}', '{esc(c['name_ka'])}', '{esc(c['name_en'])}', '{esc(c['name_uk'])}', {c['order_index']})")
 sql.append("INSERT INTO menu_categories (id, name_ka, name_en, name_uk, order_index) VALUES\n" + ",\n".join(cat_lines) + ";\n")
 
 # Items
 item_lines = []
 for idx, it in enumerate(items):
     uuid.UUID(it["cat"])
-    desc_ka = f"'{it['desc_ka']}'" if "desc_ka" in it else "NULL"
-    desc_en = f"'{it['desc_en']}'" if "desc_en" in it else "NULL"
-    desc_uk = f"'{it['desc_uk']}'" if "desc_uk" in it else "NULL"
+    desc_ka = f"'{esc(it['desc_ka'])}'" if "desc_ka" in it else "NULL"
+    desc_en = f"'{esc(it['desc_en'])}'" if "desc_en" in it else "NULL"
+    desc_uk = f"'{esc(it['desc_uk'])}'" if "desc_uk" in it else "NULL"
     
-    item_lines.append(f"('{it['cat']}', '{it['ka']}', '{it['en']}', '{it['uk']}', {desc_ka}, {desc_en}, {desc_uk}, '{it['price']}', true, {idx})")
+    item_lines.append(f"('{it['cat']}', '{esc(it['ka'])}', '{esc(it['en'])}', '{esc(it['uk'])}', {desc_ka}, {desc_en}, {desc_uk}, '{esc(it['price'])}', true, {idx})")
 
 sql.append("INSERT INTO menu_items (category_id, name_ka, name_en, name_uk, description_ka, description_en, description_uk, price, is_available, order_index) VALUES\n" + ",\n".join(item_lines) + ";\n")
 
@@ -218,7 +262,7 @@ events = [
 ]
 event_lines = []
 for ev in events:
-    event_lines.append(f"('{ev[0]}', '{ev[1]}', '{ev[2]}', '{ev[3]}', '{ev[4]}', '{ev[5]}', '{ev[6]}', '{ev[7]}', '{ev[8]}', '{ev[9]}', {ev[10]})")
+    event_lines.append(f"('{esc(ev[0])}', '{esc(ev[1])}', '{esc(ev[2])}', '{esc(ev[3])}', '{esc(ev[4])}', '{esc(ev[5])}', '{esc(ev[6])}', '{esc(ev[7])}', '{esc(ev[8])}', '{esc(ev[9])}', {ev[10]})")
 
 sql.append("INSERT INTO events (title_ka, title_en, title_uk, description_ka, description_en, description_uk, event_day_ka, event_day_en, event_day_uk, event_time, order_index) VALUES\n" + ",\n".join(event_lines) + ";\n")
 

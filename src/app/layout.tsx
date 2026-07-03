@@ -48,7 +48,7 @@ export default function RootLayout({
         
         {/* Google Fonts */}
         <link
-          href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Darker+Grotesque:wght@300;400;500;600;700;800;900&family=Noto+Sans+Georgian:wght@300;400;500;600;700;800;900&family=Noto+Serif+Georgian:ital,wght@0,300..900;1,300..900&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Darker+Grotesque:wght@300;400;500;600;700;800;900&family=Montserrat:wght@300;400;500;600;700;800&family=Noto+Sans+Georgian:wght@300;400;500;600;700;800;900&family=Noto+Serif+Georgian:ital,wght@0,300..900;1,300..900&display=swap"
           rel="stylesheet"
         />
         
