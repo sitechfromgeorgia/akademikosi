@@ -23,6 +23,7 @@ create table if exists menu_items (
     description_uk text,
     price text not null,
     is_available boolean default true not null,
+    image_url text,
     order_index integer default 0,
     created_at timestamp with time zone default timezone('utc'::text, now()) not null
 );

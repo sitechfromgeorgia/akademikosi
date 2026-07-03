@@ -3,6 +3,16 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabaseClient';
 
+const WEEKDAY_TRANSLATIONS = {
+  monday: { ka: 'ორშაბათი', en: 'Monday', uk: 'Понеділок' },
+  tuesday: { ka: 'სამშაბათი', en: 'Tuesday', uk: 'Вівторок' },
+  wednesday: { ka: 'ოთხშაბათი', en: 'Wednesday', uk: 'Середа' },
+  thursday: { ka: 'ხუთშაბათი', en: 'Thursday', uk: 'Четвер' },
+  friday: { ka: 'პარასკევი', en: 'Friday', uk: "П'ятниця" },
+  saturday: { ka: 'შაბათი', en: 'Saturday', uk: 'Субота' },
+  sunday: { ka: 'კვირა', en: 'Sunday', uk: 'Неділя' }
+};
+
 export default function AdminPage() {
   const [session, setSession] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -41,6 +51,8 @@ export default function AdminPage() {
   const [itemPrice, setItemPrice] = useState('');
   const [itemCatId, setItemCatId] = useState('');
   const [itemAvailable, setItemAvailable] = useState(true);
+  const [itemImageUrl, setItemImageUrl] = useState('');
+  const [itemModalTab, setItemModalTab] = useState<'general' | 'ka' | 'en' | 'uk'>('general');
 
   // Event Inputs
   const [eventTitleKa, setEventTitleKa] = useState('');
@@ -53,6 +65,21 @@ export default function AdminPage() {
   const [eventDayEn, setEventDayEn] = useState('');
   const [eventDayUk, setEventDayUk] = useState('');
   const [eventTime, setEventTime] = useState('');
+  const [eventModalTab, setEventModalTab] = useState<'general' | 'ka' | 'en' | 'uk'>('general');
+  const [eventDayWeekday, setEventDayWeekday] = useState<string>('custom');
+
+  // Dropdown translation handler
+  const handleWeekdayChange = (weekday: string) => {
+    setEventDayWeekday(weekday);
+    if (weekday !== 'custom') {
+      const trans = WEEKDAY_TRANSLATIONS[weekday as keyof typeof WEEKDAY_TRANSLATIONS];
+      if (trans) {
+        setEventDayKa(trans.ka);
+        setEventDayEn(trans.en);
+        setEventDayUk(trans.uk);
+      }
+    }
+  };
 
   // 1. Auth check
   useEffect(() => {
@@ -182,16 +209,17 @@ export default function AdminPage() {
     newCategories[index].order_index = newCategories[targetIndex].order_index;
     newCategories[targetIndex].order_index = temp;
 
-    // Update in database
-    await supabase
-      .from('menu_categories')
-      .update({ order_index: newCategories[index].order_index })
-      .eq('id', newCategories[index].id);
-
-    await supabase
-      .from('menu_categories')
-      .update({ order_index: newCategories[targetIndex].order_index })
-      .eq('id', newCategories[targetIndex].id);
+    // Update in database parallelly to eliminate lag
+    await Promise.all([
+      supabase
+        .from('menu_categories')
+        .update({ order_index: newCategories[index].order_index })
+        .eq('id', newCategories[index].id),
+      supabase
+        .from('menu_categories')
+        .update({ order_index: newCategories[targetIndex].order_index })
+        .eq('id', newCategories[targetIndex].id)
+    ]);
 
     fetchCategories();
   };
@@ -211,6 +239,7 @@ export default function AdminPage() {
       description_uk: itemDescUk || null,
       price: itemPrice,
       is_available: itemAvailable,
+      image_url: itemImageUrl || null,
     };
 
     if (editingId) {
@@ -239,15 +268,16 @@ export default function AdminPage() {
 
     const temp = catItems[filteredIndex].order_index;
     
-    await supabase
-      .from('menu_items')
-      .update({ order_index: catItems[targetIndex].order_index })
-      .eq('id', catItems[filteredIndex].id);
-
-    await supabase
-      .from('menu_items')
-      .update({ order_index: temp })
-      .eq('id', catItems[targetIndex].id);
+    await Promise.all([
+      supabase
+        .from('menu_items')
+        .update({ order_index: catItems[targetIndex].order_index })
+        .eq('id', catItems[filteredIndex].id),
+      supabase
+        .from('menu_items')
+        .update({ order_index: temp })
+        .eq('id', catItems[targetIndex].id)
+    ]);
 
     fetchItems();
   };
@@ -307,15 +337,17 @@ export default function AdminPage() {
     newEvents[index].order_index = newEvents[targetIndex].order_index;
     newEvents[targetIndex].order_index = temp;
 
-    await supabase
-      .from('events')
-      .update({ order_index: newEvents[index].order_index })
-      .eq('id', newEvents[index].id);
-
-    await supabase
-      .from('events')
-      .update({ order_index: newEvents[targetIndex].order_index })
-      .eq('id', newEvents[targetIndex].id);
+    // Swap indices parallelly to eliminate sequential network requests lag
+    await Promise.all([
+      supabase
+        .from('events')
+        .update({ order_index: newEvents[index].order_index })
+        .eq('id', newEvents[index].id),
+      supabase
+        .from('events')
+        .update({ order_index: newEvents[targetIndex].order_index })
+        .eq('id', newEvents[targetIndex].id)
+    ]);
 
     fetchEvents();
   };
@@ -339,6 +371,7 @@ export default function AdminPage() {
 
   const openItemModal = (item: any = null) => {
     setModalType('item');
+    setItemModalTab('general');
     if (item) {
       setEditingId(item.id);
       setItemCatId(item.category_id);
@@ -350,6 +383,7 @@ export default function AdminPage() {
       setItemDescUk(item.description_uk || '');
       setItemPrice(item.price);
       setItemAvailable(item.is_available);
+      setItemImageUrl(item.image_url || '');
     } else {
       setEditingId(null);
       setItemCatId(selectedCategoryId || (categories[0]?.id || ''));
@@ -361,12 +395,14 @@ export default function AdminPage() {
       setItemDescUk('');
       setItemPrice('');
       setItemAvailable(true);
+      setItemImageUrl('');
     }
     setIsModalOpen(true);
   };
 
   const openEventModal = (ev: any = null) => {
     setModalType('event');
+    setEventModalTab('general');
     if (ev) {
       setEditingId(ev.id);
       setEventTitleKa(ev.title_ka);
@@ -379,6 +415,13 @@ export default function AdminPage() {
       setEventDayEn(ev.event_day_en);
       setEventDayUk(ev.event_day_uk);
       setEventTime(ev.event_time);
+      
+      // Attempt to map translations to standard weekdays
+      const matchedWeekday = Object.keys(WEEKDAY_TRANSLATIONS).find(key => {
+        const trans = WEEKDAY_TRANSLATIONS[key as keyof typeof WEEKDAY_TRANSLATIONS];
+        return trans.ka === ev.event_day_ka && trans.en === ev.event_day_en && trans.uk === ev.event_day_uk;
+      });
+      setEventDayWeekday(matchedWeekday || 'custom');
     } else {
       setEditingId(null);
       setEventTitleKa('');
@@ -390,7 +433,8 @@ export default function AdminPage() {
       setEventDayKa('');
       setEventDayEn('');
       setEventDayUk('');
-      setEventTime('');
+      setEventTime('20:00'); // Standard default start time
+      setEventDayWeekday('custom');
     }
     setIsModalOpen(true);
   };
@@ -398,6 +442,7 @@ export default function AdminPage() {
   const closeModal = () => {
     setIsModalOpen(false);
     setEditingId(null);
+    setItemImageUrl('');
   };
 
   if (loading) {
@@ -688,69 +733,93 @@ export default function AdminPage() {
         {activeTab === 'events' && (
           <div className="admin-table-wrapper">
             <div className="section-actions-row">
-              <h2>Events List</h2>
+              <div>
+                <h2>Events List</h2>
+                <p style={{ opacity: 0.5, fontSize: '0.85rem', marginTop: '0.2rem' }}>
+                  Manage and order the bar events displayed on the homepage.
+                </p>
+              </div>
               <button className="admin-action-btn-primary" onClick={() => openEventModal()}>
                 + Add Event
               </button>
             </div>
-            <table className="admin-data-table">
-              <thead>
-                <tr>
-                  <th>Order</th>
-                  <th>Day</th>
-                  <th>Event Name</th>
-                  <th>Time / Details</th>
-                  <th style={{ width: '200px', textAlign: 'right' }}>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {events.map((ev, index) => (
-                  <tr key={ev.id}>
-                    <td>
-                      <div className="order-arrows">
-                        <button
-                          disabled={index === 0}
-                          onClick={() => moveEvent(index, 'up')}
-                        >
-                          ▲
-                        </button>
-                        <button
-                          disabled={index === events.length - 1}
-                          onClick={() => moveEvent(index, 'down')}
-                        >
-                          ▼
-                        </button>
-                      </div>
-                    </td>
-                    <td>{ev.event_day_en} / {ev.event_day_ka}</td>
-                    <td>{ev.title_en} / {ev.title_ka}</td>
-                    <td>
-                      <strong>{ev.event_time}</strong>
-                      {ev.description_en && (
-                        <div className="item-description-preview">
-                          <small>{ev.description_en}</small>
+            
+            <div className="admin-events-list">
+              {events.map((ev, index) => {
+                const hasKa = ev.title_ka && ev.event_day_ka;
+                const hasEn = ev.title_en && ev.event_day_en;
+                const hasUk = ev.title_uk && ev.event_day_uk;
+                
+                return (
+                  <div className="admin-event-card-item" key={ev.id}>
+                    {/* Reordering column */}
+                    <div className="admin-event-card-reorder">
+                      <button
+                        disabled={index === 0}
+                        onClick={() => moveEvent(index, 'up')}
+                        className="reorder-btn"
+                        title="Move Up"
+                      >
+                        ▲
+                      </button>
+                      <span className="order-number">{index + 1}</span>
+                      <button
+                        disabled={index === events.length - 1}
+                        onClick={() => moveEvent(index, 'down')}
+                        className="reorder-btn"
+                        title="Move Down"
+                      >
+                        ▼
+                      </button>
+                    </div>
+
+                    {/* Event summary and translations details */}
+                    <div className="admin-event-card-details">
+                      <div className="admin-event-card-main-info">
+                        <div className="time-badge">{ev.event_time}</div>
+                        <div className="event-title-languages">
+                          <div className="lang-row">
+                            <span className="lang-indicator">KA</span>
+                            <strong>{ev.event_day_ka}</strong> — {ev.title_ka}
+                            {ev.description_ka && <span className="desc-preview"> ({ev.description_ka})</span>}
+                          </div>
+                          <div className="lang-row">
+                            <span className="lang-indicator">EN</span>
+                            <strong>{ev.event_day_en}</strong> — {ev.title_en}
+                            {ev.description_en && <span className="desc-preview"> ({ev.description_en})</span>}
+                          </div>
+                          <div className="lang-row">
+                            <span className="lang-indicator">UK</span>
+                            <strong>{ev.event_day_uk}</strong> — {ev.title_uk}
+                            {ev.description_uk && <span className="desc-preview"> ({ev.description_uk})</span>}
+                          </div>
                         </div>
-                      )}
-                    </td>
-                    <td className="table-row-actions">
+                      </div>
+                      <div className="translation-status-bar">
+                        <span className={`status-pill ${hasKa ? 'complete' : 'missing'}`}>Georgian (KA)</span>
+                        <span className={`status-pill ${hasEn ? 'complete' : 'missing'}`}>English (EN)</span>
+                        <span className={`status-pill ${hasUk ? 'complete' : 'missing'}`}>Ukrainian (UK)</span>
+                      </div>
+                    </div>
+
+                    {/* Actions column */}
+                    <div className="admin-event-card-actions">
                       <button className="edit-btn" onClick={() => openEventModal(ev)}>
                         Edit
                       </button>
                       <button className="delete-btn" onClick={() => handleDeleteEvent(ev.id)}>
                         Delete
                       </button>
-                    </td>
-                  </tr>
-                ))}
-                {events.length === 0 && (
-                  <tr>
-                    <td colSpan={5} className="no-data-cell">
-                      No events found. Click "Add Event" to get started.
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
+                    </div>
+                  </div>
+                );
+              })}
+              {events.length === 0 && (
+                <div className="no-data-card">
+                  No events found. Click "Add Event" to get started.
+                </div>
+              )}
+            </div>
           </div>
         )}
       </main>
@@ -815,98 +884,164 @@ export default function AdminPage() {
 
             {/* B. ITEM FORM */}
             {modalType === 'item' && (
-              <form onSubmit={handleSaveItem}>
-                <div className="form-row-two-columns">
-                  <div className="form-group">
-                    <label>Category</label>
-                    <select value={itemCatId} onChange={(e) => setItemCatId(e.target.value)} required>
-                      {categories.map((cat) => (
-                        <option key={cat.id} value={cat.id}>
-                          {cat.name_en} / {cat.name_ka}
-                        </option>
-                      ))}
-                    </select>
+              <form onSubmit={handleSaveItem} className="modal-tabbed-form">
+                {/* Modal Internal Tabs */}
+                <div className="modal-tabs-header">
+                  <button
+                    type="button"
+                    className={`modal-tab-btn ${itemModalTab === 'general' ? 'active' : ''}`}
+                    onClick={() => setItemModalTab('general')}
+                  >
+                    General Info
+                  </button>
+                  <button
+                    type="button"
+                    className={`modal-tab-btn ${itemModalTab === 'ka' ? 'active' : ''}`}
+                    onClick={() => setItemModalTab('ka')}
+                  >
+                    ქართული (KA)
+                  </button>
+                  <button
+                    type="button"
+                    className={`modal-tab-btn ${itemModalTab === 'en' ? 'active' : ''}`}
+                    onClick={() => setItemModalTab('en')}
+                  >
+                    English (EN)
+                  </button>
+                  <button
+                    type="button"
+                    className={`modal-tab-btn ${itemModalTab === 'uk' ? 'active' : ''}`}
+                    onClick={() => setItemModalTab('uk')}
+                  >
+                    Українська (UK)
+                  </button>
+                </div>
+
+                {/* Tab: General Settings */}
+                {itemModalTab === 'general' && (
+                  <div className="modal-tab-content">
+                    <div className="form-row-two-columns">
+                      <div className="form-group">
+                        <label>Category</label>
+                        <select value={itemCatId} onChange={(e) => setItemCatId(e.target.value)} required>
+                          {categories.map((cat) => (
+                            <option key={cat.id} value={cat.id}>
+                              {cat.name_en} / {cat.name_ka}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                      <div className="form-group">
+                        <label>Price (₾)</label>
+                        <input
+                          type="text"
+                          required
+                          value={itemPrice}
+                          onChange={(e) => setItemPrice(e.target.value)}
+                          placeholder="e.g. 22 or 17/38"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="form-group">
+                      <label>Image URL (Optional)</label>
+                      <input
+                        type="text"
+                        value={itemImageUrl}
+                        onChange={(e) => setItemImageUrl(e.target.value)}
+                        placeholder="e.g. https://example.com/images/cocktail.jpg"
+                      />
+                      <span className="form-helper-text">
+                        Provide a URL for the product photo to display it in a card layout.
+                      </span>
+                    </div>
+
+                    <div className="form-group-checkbox">
+                      <input
+                        type="checkbox"
+                        id="is_available_chk"
+                        checked={itemAvailable}
+                        onChange={(e) => setItemAvailable(e.target.checked)}
+                      />
+                      <label htmlFor="is_available_chk">Visible on Site (In Stock)</label>
+                    </div>
                   </div>
-                  <div className="form-group">
-                    <label>Price (₾)</label>
-                    <input
-                      type="text"
-                      required
-                      value={itemPrice}
-                      onChange={(e) => setItemPrice(e.target.value)}
-                      placeholder="e.g. 22 or 17/38"
-                    />
+                )}
+
+                {/* Tab: Georgian (KA) */}
+                {itemModalTab === 'ka' && (
+                  <div className="modal-tab-content">
+                    <div className="form-group">
+                      <label>Item Name (KA)</label>
+                      <input
+                        type="text"
+                        required
+                        value={itemNameKa}
+                        onChange={(e) => setItemNameKa(e.target.value)}
+                        placeholder="მაგ: ნეგრონი"
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label>Description / Ingredients (KA)</label>
+                      <input
+                        type="text"
+                        value={itemDescKa}
+                        onChange={(e) => setItemDescKa(e.target.value)}
+                        placeholder="მაგ: მწარე, ცხარე"
+                      />
+                    </div>
                   </div>
-                </div>
+                )}
 
-                <div className="form-group">
-                  <label>Item Name (Georgian - KA)</label>
-                  <input
-                    type="text"
-                    required
-                    value={itemNameKa}
-                    onChange={(e) => setItemNameKa(e.target.value)}
-                    placeholder="მაგ: ნეგრონი"
-                  />
-                </div>
-                <div className="form-group">
-                  <label>Item Name (English - EN)</label>
-                  <input
-                    type="text"
-                    required
-                    value={itemNameEn}
-                    onChange={(e) => setItemNameEn(e.target.value)}
-                    placeholder="e.g. Negroni"
-                  />
-                </div>
-                <div className="form-group">
-                  <label>Item Name (Ukrainian - UK)</label>
-                  <input
-                    type="text"
-                    required
-                    value={itemNameUk}
-                    onChange={(e) => setItemNameUk(e.target.value)}
-                    placeholder="e.g. Негроні"
-                  />
-                </div>
+                {/* Tab: English (EN) */}
+                {itemModalTab === 'en' && (
+                  <div className="modal-tab-content">
+                    <div className="form-group">
+                      <label>Item Name (EN)</label>
+                      <input
+                        type="text"
+                        required
+                        value={itemNameEn}
+                        onChange={(e) => setItemNameEn(e.target.value)}
+                        placeholder="e.g. Negroni"
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label>Description / Ingredients (EN)</label>
+                      <input
+                        type="text"
+                        value={itemDescEn}
+                        onChange={(e) => setItemDescEn(e.target.value)}
+                        placeholder="e.g. Bitter, sweet"
+                      />
+                    </div>
+                  </div>
+                )}
 
-                <div className="form-group">
-                  <label>Description (KA)</label>
-                  <input
-                    type="text"
-                    value={itemDescKa}
-                    onChange={(e) => setItemDescKa(e.target.value)}
-                    placeholder="მაგ: მწარე, ცხარე"
-                  />
-                </div>
-                <div className="form-group">
-                  <label>Description (EN)</label>
-                  <input
-                    type="text"
-                    value={itemDescEn}
-                    onChange={(e) => setItemDescEn(e.target.value)}
-                    placeholder="e.g. Spicy, Chilli"
-                  />
-                </div>
-                <div className="form-group">
-                  <label>Description (UK)</label>
-                  <input
-                    type="text"
-                    value={itemDescUk}
-                    onChange={(e) => setItemDescUk(e.target.value)}
-                    placeholder="e.g. Пряний, гострий"
-                  />
-                </div>
-
-                <div className="form-group-checkbox">
-                  <input
-                    type="checkbox"
-                    id="is_available_chk"
-                    checked={itemAvailable}
-                    onChange={(e) => setItemAvailable(e.target.checked)}
-                  />
-                  <label htmlFor="is_available_chk">Available (In Stock)</label>
-                </div>
+                {/* Tab: Ukrainian (UK) */}
+                {itemModalTab === 'uk' && (
+                  <div className="modal-tab-content">
+                    <div className="form-group">
+                      <label>Item Name (UK)</label>
+                      <input
+                        type="text"
+                        required
+                        value={itemNameUk}
+                        onChange={(e) => setItemNameUk(e.target.value)}
+                        placeholder="e.g. Негроні"
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label>Description / Ingredients (UK)</label>
+                      <input
+                        type="text"
+                        value={itemDescUk}
+                        onChange={(e) => setItemDescUk(e.target.value)}
+                        placeholder="e.g. Гіркий, солодкий"
+                      />
+                    </div>
+                  </div>
+                )}
 
                 <div className="modal-footer-actions">
                   <button type="button" className="admin-cancel-btn" onClick={closeModal}>
@@ -921,109 +1056,185 @@ export default function AdminPage() {
 
             {/* C. EVENT FORM */}
             {modalType === 'event' && (
-              <form onSubmit={handleSaveEvent}>
-                <div className="form-group">
-                  <label>Event Day (KA)</label>
-                  <input
-                    type="text"
-                    required
-                    value={eventDayKa}
-                    onChange={(e) => setEventDayKa(e.target.value)}
-                    placeholder="მაგ: ოთხშაბათი"
-                  />
-                </div>
-                <div className="form-group">
-                  <label>Event Day (EN)</label>
-                  <input
-                    type="text"
-                    required
-                    value={eventDayEn}
-                    onChange={(e) => setEventDayEn(e.target.value)}
-                    placeholder="e.g. Wednesday"
-                  />
-                </div>
-                <div className="form-group">
-                  <label>Event Day (UK)</label>
-                  <input
-                    type="text"
-                    required
-                    value={eventDayUk}
-                    onChange={(e) => setEventDayUk(e.target.value)}
-                    placeholder="e.g. Середа"
-                  />
+              <form onSubmit={handleSaveEvent} className="modal-tabbed-form">
+                {/* Modal Internal Tabs */}
+                <div className="modal-tabs-header">
+                  <button
+                    type="button"
+                    className={`modal-tab-btn ${eventModalTab === 'general' ? 'active' : ''}`}
+                    onClick={() => setEventModalTab('general')}
+                  >
+                    General Info
+                  </button>
+                  <button
+                    type="button"
+                    className={`modal-tab-btn ${eventModalTab === 'ka' ? 'active' : ''}`}
+                    onClick={() => setEventModalTab('ka')}
+                  >
+                    ქართული (KA)
+                  </button>
+                  <button
+                    type="button"
+                    className={`modal-tab-btn ${eventModalTab === 'en' ? 'active' : ''}`}
+                    onClick={() => setEventModalTab('en')}
+                  >
+                    English (EN)
+                  </button>
+                  <button
+                    type="button"
+                    className={`modal-tab-btn ${eventModalTab === 'uk' ? 'active' : ''}`}
+                    onClick={() => setEventModalTab('uk')}
+                  >
+                    Українська (UK)
+                  </button>
                 </div>
 
-                <div className="form-row-two-columns">
-                  <div className="form-group">
-                    <label>Event Name (EN)</label>
-                    <input
-                      type="text"
-                      required
-                      value={eventTitleEn}
-                      onChange={(e) => setEventTitleEn(e.target.value)}
-                      placeholder="e.g. Underground Jam"
-                    />
+                {/* Tab: General Settings */}
+                {eventModalTab === 'general' && (
+                  <div className="modal-tab-content">
+                    <div className="form-group">
+                      <label>Day of the Week Helper</label>
+                      <select
+                        value={eventDayWeekday}
+                        onChange={(e) => handleWeekdayChange(e.target.value)}
+                      >
+                        <option value="custom">Custom Date (Manual Input)</option>
+                        <option value="monday">Monday (ორშაბათი / Monday / Понеділок)</option>
+                        <option value="tuesday">Tuesday (სამშაბათი / Tuesday / Вівторок)</option>
+                        <option value="wednesday">Wednesday (ოთხშაბათი / Wednesday / Середа)</option>
+                        <option value="thursday">Thursday (ხუთშაბათი / Thursday / Четвер)</option>
+                        <option value="friday">Friday (პარასკევი / Friday / П'ятниця)</option>
+                        <option value="saturday">Saturday (შაბათი / Saturday / Субота)</option>
+                        <option value="sunday">Sunday (კვირა / Sunday / Неділя)</option>
+                      </select>
+                      <span className="form-helper-text">
+                        Selecting a weekday automatically populates translation day text in other tabs.
+                      </span>
+                    </div>
+
+                    <div className="form-group">
+                      <label>Event Start Time</label>
+                      <input
+                        type="time"
+                        required
+                        value={eventTime}
+                        onChange={(e) => setEventTime(e.target.value)}
+                        className="admin-time-picker"
+                      />
+                      <span className="form-helper-text">
+                        Standardized 24-hour selector.
+                      </span>
+                    </div>
                   </div>
-                  <div className="form-group">
-                    <label>Time Info</label>
-                    <input
-                      type="text"
-                      required
-                      value={eventTime}
-                      onChange={(e) => setEventTime(e.target.value)}
-                      placeholder="e.g. 21:00"
-                    />
+                )}
+
+                {/* Tab: Georgian (KA) */}
+                {eventModalTab === 'ka' && (
+                  <div className="modal-tab-content">
+                    <div className="form-group">
+                      <label>Event Day (KA)</label>
+                      <input
+                        type="text"
+                        required
+                        value={eventDayKa}
+                        onChange={(e) => setEventDayKa(e.target.value)}
+                        placeholder="მაგ: ოთხშაბათი"
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label>Event Title / Name (KA)</label>
+                      <input
+                        type="text"
+                        required
+                        value={eventTitleKa}
+                        onChange={(e) => setEventTitleKa(e.target.value)}
+                        placeholder="მაგ: ცოცხალი მუსიკა"
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label>Event Description / Details (KA)</label>
+                      <textarea
+                        value={eventDescKa}
+                        onChange={(e) => setEventDescKa(e.target.value)}
+                        placeholder="მაგ: მოწვეული არტისტები"
+                        rows={3}
+                        className="admin-textarea"
+                      />
+                    </div>
                   </div>
-                </div>
+                )}
 
-                <div className="form-group">
-                  <label>Event Name (KA)</label>
-                  <input
-                    type="text"
-                    required
-                    value={eventTitleKa}
-                    onChange={(e) => setEventTitleKa(e.target.value)}
-                    placeholder="მაგ: ცოცხალი მუსიკა"
-                  />
-                </div>
-                <div className="form-group">
-                  <label>Event Name (UK)</label>
-                  <input
-                    type="text"
-                    required
-                    value={eventTitleUk}
-                    onChange={(e) => setEventTitleUk(e.target.value)}
-                    placeholder="e.g. Жива музика"
-                  />
-                </div>
+                {/* Tab: English (EN) */}
+                {eventModalTab === 'en' && (
+                  <div className="modal-tab-content">
+                    <div className="form-group">
+                      <label>Event Day (EN)</label>
+                      <input
+                        type="text"
+                        required
+                        value={eventDayEn}
+                        onChange={(e) => setEventDayEn(e.target.value)}
+                        placeholder="e.g. Wednesday"
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label>Event Title / Name (EN)</label>
+                      <input
+                        type="text"
+                        required
+                        value={eventTitleEn}
+                        onChange={(e) => setEventTitleEn(e.target.value)}
+                        placeholder="e.g. Live Bands"
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label>Event Description / Details (EN)</label>
+                      <textarea
+                        value={eventDescEn}
+                        onChange={(e) => setEventDescEn(e.target.value)}
+                        placeholder="e.g. Featured Artists"
+                        rows={3}
+                        className="admin-textarea"
+                      />
+                    </div>
+                  </div>
+                )}
 
-                <div className="form-group">
-                  <label>Event Description (KA)</label>
-                  <input
-                    type="text"
-                    value={eventDescKa}
-                    onChange={(e) => setEventDescKa(e.target.value)}
-                    placeholder="მაგ: ღია მიკროფონი"
-                  />
-                </div>
-                <div className="form-group">
-                  <label>Event Description (EN)</label>
-                  <input
-                    type="text"
-                    value={eventDescEn}
-                    onChange={(e) => setEventDescEn(e.target.value)}
-                    placeholder="e.g. Open Mic Night"
-                  />
-                </div>
-                <div className="form-group">
-                  <label>Event Description (UK)</label>
-                  <input
-                    type="text"
-                    value={eventDescUk}
-                    onChange={(e) => setEventDescUk(e.target.value)}
-                    placeholder="e.g. Відкритий мікрофон"
-                  />
-                </div>
+                {/* Tab: Ukrainian (UK) */}
+                {eventModalTab === 'uk' && (
+                  <div className="modal-tab-content">
+                    <div className="form-group">
+                      <label>Event Day (UK)</label>
+                      <input
+                        type="text"
+                        required
+                        value={eventDayUk}
+                        onChange={(e) => setEventDayUk(e.target.value)}
+                        placeholder="e.g. Середа"
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label>Event Title / Name (UK)</label>
+                      <input
+                        type="text"
+                        required
+                        value={eventTitleUk}
+                        onChange={(e) => setEventTitleUk(e.target.value)}
+                        placeholder="e.g. Живі гурти"
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label>Event Description / Details (UK)</label>
+                      <textarea
+                        value={eventDescUk}
+                        onChange={(e) => setEventDescUk(e.target.value)}
+                        placeholder="e.g. Запрошені არტისტები"
+                        rows={3}
+                        className="admin-textarea"
+                      />
+                    </div>
+                  </div>
+                )}
 
                 <div className="modal-footer-actions">
                   <button type="button" className="admin-cancel-btn" onClick={closeModal}>

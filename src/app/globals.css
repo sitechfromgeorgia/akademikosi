@@ -1306,3 +1306,335 @@ html[lang="uk"] .share-btn {
     text-transform: uppercase;
     margin-top: 1rem;
 }
+
+/* --- PREMIUM CARD MENU LAYOUT FOR ITEMS WITH IMAGES --- */
+.menu-item.has-image {
+    display: flex;
+    gap: 1.25rem;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.02);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    margin-bottom: 1.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+body.day-mode .menu-item.has-image {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.menu-item.has-image:hover {
+    transform: translateY(-4px);
+    border-color: rgba(0, 0, 0, 0.15);
+    box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.08);
+    background: rgba(0, 0, 0, 0.03);
+}
+
+body.day-mode .menu-item.has-image:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.5);
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.menu-item-image-wrapper {
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    position: relative;
+}
+
+body.day-mode .menu-item-image-wrapper {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.menu-item-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.menu-item.has-image:hover .menu-item-image {
+    transform: scale(1.08);
+}
+
+.menu-item.has-image .menu-item-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.menu-item.has-image .menu-name {
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
+
+.menu-item.has-image .menu-price {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.menu-item.has-image .menu-description {
+    max-width: 100%;
+    margin-top: 0.35rem;
+    font-size: 0.8rem;
+    line-height: 1.35;
+    opacity: 0.6;
+}
+
+/* --- SLEEK ADMIN EVENT LIST CARDS --- */
+.admin-events-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    margin-top: 1.5rem;
+}
+
+.admin-event-card-item {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 4px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    transition: all 0.3s ease;
+}
+
+.admin-event-card-item:hover {
+    border-color: rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.admin-event-card-reorder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    min-width: 40px;
+}
+
+.admin-event-card-reorder .reorder-btn {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #fff;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+    transition: all 0.2s ease;
+}
+
+.admin-event-card-reorder .reorder-btn:hover:not(:disabled) {
+    background: #fff;
+    color: #000;
+    border-color: #fff;
+}
+
+.admin-event-card-reorder .reorder-btn:disabled {
+    opacity: 0.2;
+    cursor: not-allowed;
+}
+
+.admin-event-card-reorder .order-number {
+    font-size: 0.75rem;
+    opacity: 0.5;
+    font-weight: 700;
+    font-family: var(--sans);
+}
+
+.admin-event-card-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.admin-event-card-main-info {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+}
+
+.admin-event-card-main-info .time-badge {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    padding: 0.5rem 0.8rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    font-family: var(--sans);
+    min-width: 70px;
+    text-align: center;
+}
+
+.event-title-languages {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.event-title-languages .lang-row {
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.event-title-languages .lang-indicator {
+    font-size: 0.65rem;
+    font-weight: 800;
+    padding: 0.15rem 0.3rem;
+    border-radius: 2px;
+    letter-spacing: 0.05em;
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.7);
+    min-width: 24px;
+    text-align: center;
+}
+
+.event-title-languages .desc-preview {
+    opacity: 0.45;
+    font-size: 0.8rem;
+}
+
+.translation-status-bar {
+    display: flex;
+    gap: 0.8rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+    padding-top: 0.6rem;
+}
+
+.status-pill {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 700;
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.status-pill.complete {
+    background: rgba(74, 255, 128, 0.08);
+    color: #4aff80;
+    border: 1px solid rgba(74, 255, 128, 0.15);
+}
+
+.status-pill.complete::before {
+    content: "✓";
+    font-size: 0.75rem;
+}
+
+.status-pill.missing {
+    background: rgba(255, 74, 74, 0.08);
+    color: #ff4a4a;
+    border: 1px solid rgba(255, 74, 74, 0.15);
+}
+
+.status-pill.missing::before {
+    content: "✗";
+    font-size: 0.75rem;
+}
+
+.no-data-card {
+    text-align: center;
+    padding: 4rem;
+    background: rgba(255, 255, 255, 0.01);
+    border: 1px dashed rgba(255, 255, 255, 0.15);
+    border-radius: 4px;
+    opacity: 0.5;
+}
+
+/* --- MODAL TABBED FORMS --- */
+.modal-tabbed-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-tabs-header {
+    display: flex;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 1.5rem;
+    gap: 0.5rem;
+}
+
+.modal-tab-btn {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.4);
+    padding: 0.6rem 1rem;
+    cursor: pointer;
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.modal-tab-btn:hover {
+    color: #fff;
+}
+
+.modal-tab-btn.active {
+    color: #fff;
+    border-bottom-color: #fff;
+}
+
+.modal-tab-content {
+    animation: fadeInTab 0.2s ease-in-out;
+}
+
+@keyframes fadeInTab {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.form-helper-text {
+    font-size: 0.7rem;
+    opacity: 0.45;
+    margin-top: 0.25rem;
+    line-height: 1.3;
+}
+
+.admin-time-picker {
+    max-width: 150px;
+}
+
+.admin-textarea {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #fff;
+    padding: 0.75rem 1rem;
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    resize: vertical;
+    border-radius: 2px;
+    transition: border-color 0.3s ease;
+    outline: none;
+}
+
+.admin-textarea:focus {
+    border-color: rgba(255, 255, 255, 0.6);
+}
+

@@ -128,7 +128,12 @@ const translations: Record<string, Record<string, string>> = {
   },
 };
 export default function HomePage() {
-  const [menu, setMenu] = useState<FallbackCategory[]>(FALLBACK_MENU);
+  const [menu, setMenu] = useState<FallbackCategory[]>(() =>
+    FALLBACK_MENU.map((cat) => ({
+      ...cat,
+      items: cat.items.filter((item) => item.is_available),
+    })).filter((cat) => cat.items.length > 0)
+  );
   const [events, setEvents] = useState<FallbackEvent[]>(FALLBACK_EVENTS);
   const [currentLang, setCurrentLang] = useState('ka');
 
@@ -510,7 +515,7 @@ export default function HomePage() {
       <section className="menu" id="menu">
         <h2 className="menu-header reveal">Menu</h2>
         <div className="menu-grid">
-          {menu.map((cat) => (
+          {menu.filter((cat) => cat.items.length > 0).map((cat) => (
             <div className="menu-category reveal" key={cat.id}>
               <h3>
                 {currentLang === 'ka'
@@ -520,7 +525,23 @@ export default function HomePage() {
                   : cat.name_uk}
               </h3>
               {cat.items.map((item) => (
-                <div className="menu-item" key={item.id}>
+                <div className={`menu-item${item.image_url ? ' has-image' : ''}`} key={item.id}>
+                  {item.image_url && (
+                    <div className="menu-item-image-wrapper">
+                      <img
+                        src={item.image_url}
+                        alt={
+                          currentLang === 'ka'
+                            ? item.name_ka
+                            : currentLang === 'en'
+                            ? item.name_en
+                            : item.name_uk
+                        }
+                        className="menu-item-image"
+                        loading="lazy"
+                      />
+                    </div>
+                  )}
                   <div className="menu-item-info">
                     <div className="menu-item-main">
                       <span className="menu-name">
@@ -530,7 +551,7 @@ export default function HomePage() {
                           ? item.name_en
                           : item.name_uk}
                       </span>
-                      <span className="menu-leader"></span>
+                      {!item.image_url && <span className="menu-leader"></span>}
                       <span className="menu-price">{item.price}₾</span>
                     </div>
                     {(currentLang === 'ka'
