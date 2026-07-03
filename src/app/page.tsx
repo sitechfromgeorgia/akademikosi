@@ -628,9 +628,15 @@ export default function HomePage() {
             <div className="contact-block">
               <h3>Location</h3>
               <p className="geo">
-                ნოე ჟორდანიას 35/37
-                <br />
-                ბათუმი, საქართველო
+                <a
+                  href="https://maps.app.goo.gl/5qqo9CdV2zH1my5b9"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  ნოე ჟორდანიას 35/37
+                  <br />
+                  ბათუმი, საქართველო
+                </a>
               </p>
             </div>
 
@@ -677,7 +683,7 @@ export default function HomePage() {
           <div className="contact-map reveal">
             <iframe
               loading="lazy"
-              data-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2949.234!2d41.641!3d41.641!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDHCsDM4JzI3LjYiTiA0McKwMzgnMjcuNiJF!5e0!3m2!1sen!2sge!4v1234567890"
+              data-src="https://maps.google.com/maps?q=41.6499484,41.6395424&t=&z=17&ie=UTF8&iwloc=&output=embed"
               allowFullScreen
               referrerPolicy="no-referrer-when-downgrade"
             ></iframe>
