@@ -5,6 +5,11 @@ export const metadata: Metadata = {
   title: 'აკადემიკოსი · akademikosi — Bar & Kitchen · Batumi',
   description: 'Craft cocktails, kitchen, live music. Mon-Wed 19:00-02:00, Fri-Sun 19:00-03:00. ნოე ჟორდანიას 35/37, ბათუმი',
   keywords: 'akademikosi, აკადემიკოსი, bar, kitchen, batumi, cocktails, live music',
+  icons: {
+    icon: '/icon-192.png',
+    shortcut: '/icon-192.png',
+    apple: '/icon-192.png',
+  },
   openGraph: {
     title: 'აკადემიკოსი · akademikosi — Bar & Kitchen',
     description: 'Craft cocktails, kitchen, live music in Batumi',
@@ -49,6 +54,10 @@ export default function RootLayout({
         
         {/* Manifest */}
         <link rel="manifest" href="/manifest.json" />
+        
+        {/* Favicon / Icons */}
+        <link rel="icon" href="/icon-192.png" type="image/png" />
+        <link rel="shortcut icon" href="/icon-192.png" type="image/png" />
         
         {/* Apple Touch Icon */}
         <link rel="apple-touch-icon" href="/icon-192.png" />
