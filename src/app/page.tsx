@@ -772,23 +772,29 @@ export default function HomePage() {
           <br />
           <small
             style={{
-              opacity: 0.3,
-              fontSize: '0.65em',
-              letterSpacing: '0.15em',
+              opacity: 0.4,
+              fontSize: '0.7em',
+              letterSpacing: '0.05em',
+              marginTop: '0.5rem',
+              display: 'block',
             }}
           >
-            Website by{' '}
+            დამზადებულია სიყვარულით{' '}
             <a
               href="https://sitech.ge"
               target="_blank"
+              rel="noopener noreferrer"
               style={{
                 color: 'inherit',
                 textDecoration: 'none',
-                borderBottom: '1px solid rgba(255,255,255,0.2)',
+                borderBottom: '1px solid rgba(255,255,255,0.25)',
+                fontWeight: 600,
+                transition: 'border-color 0.3s ease',
               }}
             >
               SiTech
             </a>
+            -ის მიერ ❤️
           </small>
         </div>
       </footer>
