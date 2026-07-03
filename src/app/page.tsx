@@ -168,28 +168,31 @@ export default function HomePage() {
 
         // Map items to categories
         if (categoriesData) {
-          const mappedMenu = categoriesData.map((cat: any) => ({
-            id: cat.id,
-            name_ka: cat.name_ka,
-            name_en: cat.name_en,
-            name_uk: cat.name_uk,
-            order_index: cat.order_index,
-            items: (itemsData || [])
-              .filter((item: any) => item.category_id === cat.id)
-              .map((item: any) => ({
-                id: item.id,
-                category_id: item.category_id,
-                name_ka: item.name_ka,
-                name_en: item.name_en,
-                name_uk: item.name_uk,
-                description_ka: item.description_ka,
-                description_en: item.description_en,
-                description_uk: item.description_uk,
-                price: item.price,
-                is_available: item.is_available,
-                order_index: item.order_index,
-              })),
-          }));
+          const mappedMenu = categoriesData
+            .map((cat: any) => ({
+              id: cat.id,
+              name_ka: cat.name_ka,
+              name_en: cat.name_en,
+              name_uk: cat.name_uk,
+              order_index: cat.order_index,
+              items: (itemsData || [])
+                .filter((item: any) => item.category_id === cat.id)
+                .map((item: any) => ({
+                  id: item.id,
+                  category_id: item.category_id,
+                  name_ka: item.name_ka,
+                  name_en: item.name_en,
+                  name_uk: item.name_uk,
+                  description_ka: item.description_ka,
+                  description_en: item.description_en,
+                  description_uk: item.description_uk,
+                  price: item.price,
+                  is_available: item.is_available,
+                  order_index: item.order_index,
+                  image_url: item.image_url,
+                })),
+            }))
+            .filter((cat: any) => cat.items.length > 0);
           setMenu(mappedMenu);
         }
 
@@ -274,7 +277,7 @@ export default function HomePage() {
     script.async = true;
     script.onload = () => {
       const qr = (window as any).qrcode(0, 'M');
-      qr.addData('https://akademikosi.pages.dev');
+      qr.addData('https://akademikosi.ge/');
       qr.make();
       const qrContainer = document.getElementById('qrcode');
       if (qrContainer) {
