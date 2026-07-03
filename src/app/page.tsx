@@ -664,9 +664,9 @@ export default function HomePage() {
                 </a>
                 <br />
                 <a
-                  href="https://www.facebook.com/share/1CUGiQmwn4/"
+                  href="https://www.facebook.com/profile.php?id=61572941232629"
                   target="_blank"
-                  rel="noopener"
+                  rel="noopener noreferrer"
                 >
                   Facebook
                 </a>
