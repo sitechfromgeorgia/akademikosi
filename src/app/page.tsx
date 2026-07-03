@@ -429,7 +429,7 @@ export default function HomePage() {
         .share({
           title: 'აკადემიკოსი · Akademikosi',
           text: 'აკადემიკოსი — ბარი & სამზარეულო 🍸',
-          url: 'https://akademikosi.pages.dev',
+          url: 'https://akademikosi.ge/',
         })
         .catch(() => {});
     };
@@ -717,7 +717,7 @@ export default function HomePage() {
               <span>Share</span>
             </button>
             <a
-              href="https://wa.me/?text=%E1%83%90%E1%83%99%E1%83%90%E1%83%93%E1%83%94%E1%83%9B%E1%83%98%E1%83%99%E1%83%9D%E1%83%A1%E1%83%98%20%C2%B7%20Akademikosi%20%F0%9F%8D%B8%20https://akademikosi.pages.dev"
+              href="https://wa.me/?text=%E1%83%90%E1%83%99%E1%83%90%E1%83%93%E1%83%94%E1%83%9B%E1%83%98%E1%83%99%E1%83%9D%E1%83%A1%E1%83%98%20%C2%B7%20Akademikosi%20%F0%9F%8D%B8%20https://akademikosi.ge/"
               target="_blank"
               className="share-btn share-wa"
             >
@@ -733,7 +733,7 @@ export default function HomePage() {
               <span>WhatsApp</span>
             </a>
             <a
-              href="https://www.facebook.com/sharer/sharer.php?u=https://akademikosi.pages.dev"
+              href="https://www.facebook.com/sharer/sharer.php?u=https://akademikosi.ge/"
               target="_blank"
               className="share-btn share-fb"
             >
