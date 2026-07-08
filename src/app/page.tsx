@@ -136,6 +136,8 @@ export default function HomePage() {
   );
   const [events, setEvents] = useState<FallbackEvent[]>(FALLBACK_EVENTS);
   const [currentLang, setCurrentLang] = useState('ka');
+  const [activeCategory, setActiveCategory] = useState<string>('');
+  const [isManualScroll, setIsManualScroll] = useState(false);
 
   // Sync language state on mount
   useEffect(() => {
@@ -236,6 +238,67 @@ export default function HomePage() {
       revealObserver.disconnect();
     };
   }, [menu, events]);
+
+  // Observe category elements to update active navigation tab
+  useEffect(() => {
+    const categoryElements = document.querySelectorAll('.menu-category');
+    const intersectingMap = new Map<string, boolean>();
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        intersectingMap.set(entry.target.id, entry.isIntersecting);
+      });
+
+      // Ignore observer updates if we are scrolling manually
+      if (isManualScroll) return;
+
+      // Find the first intersecting category (the one highest on the page)
+      const active = Array.from(categoryElements)
+        .find((el) => intersectingMap.get(el.id));
+        
+      if (active) {
+        setActiveCategory(active.id);
+      }
+    }, {
+      root: null,
+      rootMargin: '-10% 0px -40% 0px',
+      threshold: 0
+    });
+
+    categoryElements.forEach((el) => observer.observe(el));
+
+    // Clear active state if we scroll completely out of the menu section
+    const menuSection = document.getElementById('menu');
+    let menuObserver: IntersectionObserver | null = null;
+    if (menuSection) {
+      menuObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting && !isManualScroll) {
+            setActiveCategory('');
+          }
+        });
+      }, { root: null, rootMargin: '-120px 0px 0px 0px', threshold: 0 });
+      menuObserver.observe(menuSection);
+    }
+
+    return () => {
+      observer.disconnect();
+      if (menuObserver) menuObserver.disconnect();
+    };
+  }, [menu, isManualScroll]);
+
+  // Auto-scroll the active category button into view within the horizontal category nav
+  useEffect(() => {
+    if (!activeCategory) return;
+    const activeBtn = document.querySelector(`.category-nav-btn.active`);
+    if (activeBtn) {
+      activeBtn.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+        inline: 'center',
+      });
+    }
+  }, [activeCategory]);
 
   useEffect(() => {
 
@@ -517,9 +580,48 @@ export default function HomePage() {
       {/* MENU */}
       <section className="menu" id="menu">
         <h2 className="menu-header reveal">Menu</h2>
+
+        {/* Category Navigation Bar */}
+        <div className="category-nav-wrapper reveal">
+          <div className="category-nav">
+            {menu.filter((cat) => cat.items.length > 0).map((cat) => (
+              <button
+                key={cat.id}
+                className={`category-nav-btn ${activeCategory === `category-${cat.id}` ? 'active' : ''}`}
+                onClick={() => {
+                  const el = document.getElementById(`category-${cat.id}`);
+                  if (el) {
+                    const headerOffset = 100;
+                    const elementPosition = el.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                    
+                    setIsManualScroll(true);
+                    window.scrollTo({
+                      top: offsetPosition,
+                      behavior: 'smooth'
+                    });
+                    
+                    setActiveCategory(`category-${cat.id}`);
+                    
+                    setTimeout(() => {
+                      setIsManualScroll(false);
+                    }, 800);
+                  }
+                }}
+              >
+                {currentLang === 'ka'
+                  ? cat.name_ka
+                  : currentLang === 'en'
+                  ? cat.name_en
+                  : cat.name_uk}
+              </button>
+            ))}
+          </div>
+        </div>
+
         <div className="menu-grid">
           {menu.filter((cat) => cat.items.length > 0).map((cat) => (
-            <div className="menu-category reveal" key={cat.id}>
+            <div className="menu-category reveal" key={cat.id} id={`category-${cat.id}`}>
               <h3>
                 {currentLang === 'ka'
                   ? cat.name_ka

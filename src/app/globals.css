@@ -1667,3 +1667,88 @@ html[lang="uk"] .share-btn {
     border-color: rgba(255, 255, 255, 0.6);
 }
 
+/* --- PREMIUM STICKY CATEGORY NAVIGATION BAR --- */
+.category-nav-wrapper {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10, 10, 10, 0.85); /* Matches var(--bg-primary) with transparency */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-color-soft);
+    margin-bottom: 4rem;
+    padding: 1.2rem 0;
+    display: flex;
+    justify-content: center;
+    transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+/* Update background for Day Mode */
+body.day-mode .category-nav-wrapper {
+    background: rgba(255, 255, 255, 0.85);
+}
+
+.category-nav {
+    display: flex;
+    gap: 0.75rem;
+    overflow-x: auto;
+    scrollbar-width: none; /* Hide scrollbar Firefox */
+    -ms-overflow-style: none;  /* Hide scrollbar IE/Edge */
+    padding: 0 1.5rem;
+    max-width: 1200px;
+    width: 100%;
+    scroll-behavior: smooth;
+}
+
+.category-nav::-webkit-scrollbar {
+    display: none; /* Hide scrollbar Chrome/Safari/Webkit */
+}
+
+.category-nav-btn {
+    font-family: var(--sans);
+    font-size: clamp(0.75rem, 2vw, 0.85rem);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    padding: 0.6rem 1.4rem;
+    background: transparent;
+    border: 1px solid var(--border-color-soft);
+    color: var(--text-secondary);
+    border-radius: 50px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.category-nav-btn:hover {
+    color: var(--text-primary);
+    border-color: var(--text-primary);
+    transform: translateY(-1px);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+body.day-mode .category-nav-btn:hover {
+    background: rgba(0, 0, 0, 0.03);
+}
+
+.category-nav-btn.active {
+    color: var(--bg-primary);
+    background: var(--text-primary);
+    border-color: var(--text-primary);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.menu-category {
+    scroll-margin-top: 100px; /* Offset smooth scroll below sticky nav bar */
+}
+
+@media (max-width: 768px) {
+    .category-nav-wrapper {
+        padding: 0.9rem 0;
+        margin-bottom: 2.5rem;
+    }
+    .category-nav-btn {
+        padding: 0.5rem 1.1rem;
+    }
+}
+
